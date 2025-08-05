@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<access component="com_expensemanager">
+    <section name="component">
+        <!-- Permissão administrativa geral -->
+        <action name="core.admin" title="JACTION_ADMIN" description="JACTION_ADMIN_COMPONENT_DESC" />
+        
+        <!-- Permissão para gerenciar o componente -->
+        <action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC" />
+        
+        <!-- Permissão para criar novos itens -->
+        <action name="core.create" title="JACTION_CREATE" description="JACTION_CREATE_COMPONENT_DESC" />
+        
+        <!-- Permissão para deletar itens -->
+        <action name="core.delete" title="JACTION_DELETE" description="JACTION_DELETE_COMPONENT_DESC" />
+        
+        <!-- Permissão para editar itens -->
+        <action name="core.edit" title="JACTION_EDIT" description="JACTION_EDIT_COMPONENT_DESC" />
+        
+        <!-- Permissão para editar estado (publicar/despublicar) -->
+        <action name="core.edit.state" title="JACTION_EDITSTATE" description="JACTION_EDITSTATE_COMPONENT_DESC" />
+        
+        <!-- Permissão para editar próprios itens -->
+        <action name="core.edit.own" title="JACTION_EDITOWN" description="JACTION_EDITOWN_COMPONENT_DESC" />
+    </section>
+    
+    <!-- Permissões específicas para gastos -->
+    <section name="expense">
+        <action name="core.create" title="JACTION_CREATE" description="COM_EXPENSEMANAGER_ACCESS_CREATE_EXPENSE_DESC" />
+        <action name="core.delete" title="JACTION_DELETE" description="COM_EXPENSEMANAGER_ACCESS_DELETE_EXPENSE_DESC" />
+        <action name="core.edit" title="JACTION_EDIT" description="COM_EXPENSEMANAGER_ACCESS_EDIT_EXPENSE_DESC" />
+        <action name="core.edit.state" title="JACTION_EDITSTATE" description="COM_EXPENSEMANAGER_ACCESS_EDITSTATE_EXPENSE_DESC" />
+        <action name="core.edit.own" title="JACTION_EDITOWN" description="COM_EXPENSEMANAGER_ACCESS_EDITOWN_EXPENSE_DESC" />
+    </section>
+    
+    <!-- Permissões específicas para clientes -->
+    <section name="client">
+        <action name="core.create" title="JACTION_CREATE" description="COM_EXPENSEMANAGER_ACCESS_CREATE_CLIENT_DESC" />
+        <action name="core.delete" title="JACTION_DELETE" description="COM_EXPENSEMANAGER_ACCESS_DELETE_CLIENT_DESC" />
+        <action name="core.edit" title="JACTION_EDIT" description="COM_EXPENSEMANAGER_ACCESS_EDIT_CLIENT_DESC" />
+        <action name="core.edit.state" title="JACTION_EDITSTATE" description="COM_EXPENSEMANAGER_ACCESS_EDITSTATE_CLIENT_DESC" />
+    </section>
+    
+    <!-- Permissões específicas para consultores -->
+    <section name="consultant">
+        <action name="core.create" title="JACTION_CREATE" description="COM_EXPENSEMANAGER_ACCESS_CREATE_CONSULTANT_DESC" />
+        <action name="core.delete" title="JACTION_DELETE" description="COM_EXPENSEMANAGER_ACCESS_DELETE_CONSULTANT_DESC" />
+        <action name="core.edit" title="JACTION_EDIT" description="COM_EXPENSEMANAGER_ACCESS_EDIT_CONSULTANT_DESC" />
+        <action name="core.edit.state" title="JACTION_EDITSTATE" description="COM_EXPENSEMANAGER_ACCESS_EDITSTATE_CONSULTANT_DESC" />
+    </section>
+</access>
