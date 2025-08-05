@@ -27,8 +27,6 @@ if ($saveOrder)
     $saveOrderingUrl = 'index.php?option=com_expensemanager&task=cities.saveOrderAjax&tmpl=component';
     JHtml::_('sortablelist.sortable', 'cityList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
-
-$sortFields = $this->getSortFields();
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_expensemanager&view=cities'); ?>" method="post" name="adminForm" id="adminForm">
@@ -79,9 +77,9 @@ $sortFields = $this->getSortFields();
                         </th>
                     </tr>
                 </thead>
+                
                 <tbody>
                 <?php foreach ($this->items as $i => $item) :
-                    $ordering   = ($listOrder == 'a.ordering');
                     $canCreate  = $user->authorise('core.create', 'com_expensemanager');
                     $canEdit    = $user->authorise('core.edit', 'com_expensemanager');
                     $canCheckin = $user->authorise('core.manage', 'com_checkin') || $item->checked_out == $user->get('id') || $item->checked_out == 0;
@@ -91,12 +89,9 @@ $sortFields = $this->getSortFields();
                         <td class="order nowrap center hidden-phone">
                             <?php
                             $iconClass = '';
-                            if (!$canChange)
-                            {
+                            if (!$canChange) {
                                 $iconClass = ' inactive';
-                            }
-                            elseif (!$saveOrder)
-                            {
+                            } elseif (!$saveOrder) {
                                 $iconClass = ' inactive tip-top hasTooltip" title="' . JHtml::_('tooltipText', 'JORDERINGDISABLED');
                             }
                             ?>
@@ -111,9 +106,7 @@ $sortFields = $this->getSortFields();
                             <?php echo JHtml::_('grid.id', $i, $item->id); ?>
                         </td>
                         <td class="center">
-                            <div class="btn-group">
-                                <?php echo JHtml::_('jgrid.published', $item->published, $i, 'cities.', $canChange, 'cb', $item->publish_up, $item->publish_down); ?>
-                            </div>
+                            <?php echo JHtml::_('jgrid.published', $item->published, $i, 'cities.', $canChange, 'cb'); ?>
                         </td>
                         <td class="nowrap has-context">
                             <div class="pull-left">
@@ -144,9 +137,15 @@ $sortFields = $this->getSortFields();
                     </tr>
                 <?php endforeach; ?>
                 </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="8">
+                            <?php echo $this->pagination->getListFooter(); ?>
+                        </td>
+                    </tr>
+                </tfoot>
+
             </table>
-            
-            <?php echo $this->pagination->getListFooter(); ?>
             
         <?php endif; ?>
 

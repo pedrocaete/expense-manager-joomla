@@ -11,29 +11,10 @@
 // Proteção contra acesso direto
 defined('_JEXEC') or die('Restricted access');
 
-/**
- * Controller para Lista de Cidades
- * 
- * Este controller gerencia as ações em massa na lista:
- * - Publicar/Despublicar múltiplas cidades
- * - Deletar múltiplas cidades
- * - Reordenar cidades
- */
 class ExpenseManagerControllerCities extends JControllerAdmin
 {
-    /**
-     * Define qual model usar para operações em massa
-     * O Joomla automaticamente procura por ExpenseManagerModelCity
-     */
     protected $text_prefix = 'COM_EXPENSEMANAGER_CITIES';
-
-    /**
-     * Obtém o model para um item individual
-     * Usado nas operações de publish, unpublish, delete, etc.
-     */
-    public function getModel($name = 'City', $prefix = 'ExpenseManagerModel', $config = array())
-    {
-        $model = parent::getModel($name, $prefix, array('ignore_request' => true));
-        return $model;
-    }
+    
+    // O método getModel() foi intencionalmente removido. 
+    // A classe pai JControllerAdmin já faz o trabalho corretamente.
 }

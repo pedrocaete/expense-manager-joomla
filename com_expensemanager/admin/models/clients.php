@@ -13,10 +13,6 @@ defined('_JEXEC') or die('Restricted access');
 
 class ExpenseManagerModelClients extends JModelList
 {
-/**
-     * Construtor do model
-     * * @param array $config Configuration array
-     */
     public function __construct($config = array())
     {
         if (empty($config['filter_fields']))
@@ -26,9 +22,7 @@ class ExpenseManagerModelClients extends JModelList
                 'name', 'a.name',
                 'client_type', 'a.client_type',
                 'cnpj', 'a.cnpj',
-                'city_id', 'a.city_id',
-                'contact_person', 'a.contact_person',
-                'contact_email', 'a.contact_email',
+                'city_id', 'a.city_id', 'city_name',
                 'published', 'a.published',
                 'ordering', 'a.ordering'
             );
@@ -37,17 +31,6 @@ class ExpenseManagerModelClients extends JModelList
         parent::__construct($config);
     }
 
-    /**
-     * Constrói a query SQL para buscar os dados
-     * 
-     * Este método é chamado automaticamente pelo JModelList
-     * Aqui definimos:
-     * - Quais tabelas consultar
-     * - Quais campos selecionar  
-     * - Como fazer JOIN entre tabelas
-     * 
-     * @return JDatabaseQuery
-     */
     protected function getListQuery()
     {
         $db = $this->getDbo();
@@ -56,19 +39,19 @@ class ExpenseManagerModelClients extends JModelList
         $query->select(
             $this->getState(
                 'list.select',
-                'a.id, a.name, a.client_type, a.cnpj, a.city_id, a.contact_person, a.contact_email, a.published, a.created, a.created_by, a.ordering'
+                'a.id, a.name, a.client_type, a.cnpj, a.city_id, a.contact_person, a.contact_email, a.published, a.created, a.created_by, a.ordering, a.checked_out, a.checked_out_time'
             )
         );
-
         $query->from('#__expensemanager_clients AS a');
 
         $query->select('c.name AS city_name');
         $query->join('LEFT', '#__expensemanager_cities AS c ON c.id = a.city_id');
+        $query->select('u.name AS created_by_name');
+        $query->join('LEFT', '#__users AS u ON u.id = a.created_by');
+        $query->select('uc.name AS editor');
+        $query->join('LEFT', '#__users AS uc ON uc.id = a.checked_out');
 
-        $query->select('u.name AS created_by_name')
-              ->join('LEFT', '#__users AS u ON u.id = a.created_by');
-
-
+        // Filtro de Publicação
         $published = $this->getState('filter.published');
         if (is_numeric($published))
         {
@@ -76,9 +59,10 @@ class ExpenseManagerModelClients extends JModelList
         }
         elseif ($published === '')
         {
-            $query->where('(a.published = 0 OR a.published = 1)');
+            $query->where('(a.published IN (0, 1))');
         }
 
+        // Filtro de Pesquisa
         $search = $this->getState('filter.search');
         if (!empty($search))
         {
@@ -88,68 +72,33 @@ class ExpenseManagerModelClients extends JModelList
             }
             else
             {
-                $search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
+                $search = $db->quote('%' . $db->escape($search, true) . '%');
                 $query->where(
                     '(a.name LIKE ' . $search .
                     ' OR a.cnpj LIKE ' . $search .
-                    ' OR a.contact_person LIKE ' . $search .
-                    ' OR a.contact_email LIKE ' . $search . ')'
+                    ' OR a.contact_person LIKE ' . $search . ')'
                 );
             }
         }
 
+        // Ordenação
         $orderCol = $this->state->get('list.ordering', 'a.name');
         $orderDirn = $this->state->get('list.direction', 'ASC');
-        
-        $orderCol = $db->escape($orderCol);
-        $orderDirn = $db->escape($orderDirn);
-        
-        $query->order($orderCol . ' ' . $orderDirn);
+        $query->order($db->escape($orderCol . ' ' . $orderDirn));
 
         return $query;
     }
 
-    /**
-     * Define os estados (filtros) padrão do model
-     */
-    protected function populateState($ordering = 'name', $direction = 'asc')
+    protected function populateState($ordering = 'a.name', $direction = 'asc')
     {
+        parent::populateState($ordering, $direction);
+        
+        $app = JFactory::getApplication();
+
         $search = $this->getUserStateFromRequest($this->context . '.filter.search', 'filter_search');
         $this->setState('filter.search', $search);
 
-        $published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published', '');
+        $published = $this->getUserStateFromRequest($this->context . '.filter.published', 'filter_published');
         $this->setState('filter.published', $published);
-
-        parent::populateState($ordering, $direction);
-    }
-
-    /**
-     * Obtém uma instância da JTable correspondente
-     * 
-     * @param string $type Table type
-     * @param string $prefix Table prefix  
-     * @param array $config Configuration array
-     * @return JTable
-     */
-    public function getTable($type = 'Client', $prefix = 'ExpenseManagerTable', $config = array())
-    {
-        return JTable::getInstance($type, $prefix, $config);
-    }
-
-    /**
-     * Retorna uma instância do formulário de filtro.
-     *
-     * @param   array    $data      Dados para o formulário.
-     * @param   boolean  $loadData  True para carregar os dados do filtro da sessão.
-     *
-     * @return  JForm|false  Um objeto JForm ou false em caso de erro.
-     */
-    public function getFilterForm($data = [], $loadData = true)
-    {
-        return $this->loadForm(
-            $this->context . '.filter',
-            'filter_clients',
-            array('control' => 'filter', 'load_data' => $loadData)
-        );
     }
 }

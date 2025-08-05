@@ -28,7 +28,6 @@ if ($saveOrder)
     JHtml::_('sortablelist.sortable', 'consultantList', 'adminForm', strtolower($listDirn), $saveOrderingUrl);
 }
 
-$sortFields = $this->getSortFields();
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_expensemanager&view=consultants'); ?>" method="post" name="adminForm" id="adminForm">

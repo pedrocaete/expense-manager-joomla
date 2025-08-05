@@ -13,7 +13,6 @@ defined('_JEXEC') or die('Restricted access');
 
 class ExpenseManagerViewClients extends JViewLegacy
 {
-
     public $items;
     public $pagination;
     public $state;
@@ -35,6 +34,7 @@ class ExpenseManagerViewClients extends JViewLegacy
         }
 
         $this->addToolbar();
+        ExpenseManagerHelper::addSubmenu('clients');
         $this->sidebar = JHtmlSidebar::render();
 
         parent::display($tpl);
@@ -43,7 +43,6 @@ class ExpenseManagerViewClients extends JViewLegacy
     protected function addToolbar()
     {
         $canDo = ExpenseManagerHelper::getActions();
-        $user  = JFactory::getUser();
 
         JToolbarHelper::title(JText::_('COM_EXPENSEMANAGER_CLIENTS_MANAGER'), 'folder');
 
@@ -75,31 +74,5 @@ class ExpenseManagerViewClients extends JViewLegacy
         {
             JToolbarHelper::preferences('com_expensemanager');
         }
-
-        JHtmlSidebar::setAction('index.php?option=com_expensemanager&view=clients');
-
-        JHtmlSidebar::addFilter(
-            JText::_('JOPTION_SELECT_PUBLISHED'),
-            'filter_published',
-            JHtml::_('select.options', JHtml::_('jgrid.publishedOptions'), 'value', 'text', $this->state->get('filter.published'), true)
-        );
-    }
-
-    /**
-     * Retorna os campos de ordenação para o layout de searchtools.
-     *
-     * @return  array  Um array de campos pelos quais a lista pode ser ordenada.
-     */
-    protected function getSortFields()
-    {
-        return array(
-            'a.ordering'    => JText::_('JGRID_HEADING_ORDERING'),
-            'a.published'   => JText::_('JSTATUS'),
-            'a.name'        => JText::_('COM_EXPENSEMANAGER_CLIENT_NAME'),
-            'a.client_type' => JText::_('COM_EXPENSEMANAGER_CLIENT_TYPE'),
-            'a.cnpj'        => JText::_('COM_EXPENSEMANAGER_CLIENT_CNPJ'),
-            'a.city_id'     => JText::_('COM_EXPENSEMANAGER_CLIENT_CITY'),
-            'a.id'          => JText::_('JGRID_HEADING_ID')
-        );
     }
 }
