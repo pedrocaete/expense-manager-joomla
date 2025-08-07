@@ -125,7 +125,6 @@ class ExpenseManagerTableConsultant extends JTable
         $k = $this->_tbl_key;
         $pk = (is_null($pk)) ? $this->$k : $pk;
 
-        // Verifica se há clientes usando esta cidade
         $db = $this->getDbo();
         $query = $db->getQuery(true)
             ->select('COUNT(*)')
@@ -134,10 +133,9 @@ class ExpenseManagerTableConsultant extends JTable
         $db->setQuery($query);
         $count = $db->loadResult();
 
-        // Se há clientes usando, não permite deletar
         if ($count > 0)
         {
-            $this->setError(JText::_('COM_EXPENSEMANAGER_ERROR_CONSULTANT_HAS_CLIENTS'));
+            $this->setError(JText::_('COM_EXPENSEMANAGER_ERROR_CONSULTANT_HAS_EXPENSES'));
             return false;
         }
 

@@ -43,33 +43,39 @@ class ExpenseManagerViewClients extends JViewLegacy
     protected function addToolbar()
     {
         $canDo = ExpenseManagerHelper::getActions();
-
-        JToolbarHelper::title(JText::_('COM_EXPENSEMANAGER_CLIENTS_MANAGER'), 'folder');
-
-        if ($canDo->get('core.create'))
+        $state = $this->get('State');
+    
+        JToolbarHelper::title(JText::_('COM_EXPENSEMANAGER_CLIENTS_MANAGER'), 'folder'); // Ícone de 'pasta'
+    
+        if ($state->get('filter.published') == -2)
         {
-            JToolbarHelper::addNew('client.add');
+            JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'clients.delete', 'JTOOLBAR_EMPTY_TRASH');
+            JToolbarHelper::publish('clients.publish', 'JTOOLBAR_PUBLISH', true);
         }
-
-        if (!empty($this->items))
+        else
         {
-            if ($canDo->get('core.edit'))
+            if ($canDo->get('core.create'))
             {
-                JToolbarHelper::editList('client.edit');
+                JToolbarHelper::addNew('client.add');
             }
-
-            if ($canDo->get('core.edit.state'))
+            if (!empty($this->items))
             {
-                JToolbarHelper::publish('clients.publish', 'JTOOLBAR_PUBLISH', true);
-                JToolbarHelper::unpublish('clients.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-            }
-
-            if ($canDo->get('core.delete'))
-            {
-                JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'clients.delete', 'JTOOLBAR_DELETE');
+                if ($canDo->get('core.edit'))
+                {
+                    JToolbarHelper::editList('client.edit');
+                }
+                if ($canDo->get('core.edit.state'))
+                {
+                    JToolbarHelper::publish('clients.publish', 'JTOOLBAR_PUBLISH', true);
+                    JToolbarHelper::unpublish('clients.unpublish', 'JTOOLBAR_UNPUBLISH', true);
+                }
+                if ($canDo->get('core.delete'))
+                {
+                    JToolbarHelper::trash('clients.trash', 'JTOOLBAR_TRASH');
+                }
             }
         }
-
+    
         if ($canDo->get('core.admin'))
         {
             JToolbarHelper::preferences('com_expensemanager');

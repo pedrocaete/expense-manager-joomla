@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset name="details" label="COM_EXPENSEMANAGER_EXPENSE_DETAILS_LABEL">
+
+        <field
+            name="id"
+            type="hidden" />
+        
+        <field
+            name="published"
+            type="list"
+            label="JSTATUS"
+            default="1">
+            <option value="1">JPUBLISHED</option>
+            <option value="0">JUNPUBLISHED</option>
+        </field>
+
+        <field
+            name="consultant_id"
+            type="sql"
+            label="COM_EXPENSEMANAGER_EXPENSE_CONSULTANT"
+            query="SELECT id, name FROM #__expensemanager_consultants WHERE published = 1 ORDER BY name"
+            key_field="id"
+            value_field="name"
+            required="true">
+            <option value="">COM_EXPENSEMANAGER_SELECT_CONSULTANT</option>
+        </field>
+
+        <field
+            name="client_id"
+            type="sql"
+            label="COM_EXPENSEMANAGER_EXPENSE_CLIENT"
+            query="SELECT id, name FROM #__expensemanager_clients WHERE published = 1 ORDER BY name"
+            key_field="id"
+            value_field="name"
+            required="true">
+            <option value="">COM_EXPENSEMANAGER_SELECT_CLIENT</option>
+        </field>
+
+        <field
+            name="category_id"
+            type="sql"
+            label="COM_EXPENSEMANAGER_EXPENSE_CATEGORY"
+            query="SELECT id, name FROM #__expensemanager_categories WHERE published = 1 ORDER BY name"
+            key_field="id"
+            value_field="name"
+            required="true">
+            <option value="">COM_EXPENSEMANAGER_SELECT_CATEGORY</option>
+        </field>
+
+        <field
+            name="description"
+            type="textarea"
+            label="COM_EXPENSEMANAGER_EXPENSE_DESCRIPTION"
+            required="true"
+            rows="3"
+            filter="string" />
+
+        <field
+            name="amount"
+            type="text"
+            label="COM_EXPENSEMANAGER_EXPENSE_AMOUNT"
+            required="true"
+            filter="float"
+            hint="0.00" />
+
+        <field
+            name="expense_date"
+            type="calendar"
+            label="COM_EXPENSEMANAGER_EXPENSE_DATE"
+            required="true"
+            format="%Y-%m-%d" />
+
+        <field
+            name="invoice_number"
+            type="text"
+            label="COM_EXPENSEMANAGER_EXPENSE_INVOICE_NUMBER"
+            filter="string" />
+
+        <field
+            name="notes"
+            type="textarea"
+            label="COM_EXPENSEMANAGER_EXPENSE_NOTES"
+            rows="3"
+            filter="string" />
+
+    </fieldset>
+</form>

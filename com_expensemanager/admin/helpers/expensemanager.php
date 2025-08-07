@@ -116,12 +116,23 @@ class ExpenseManagerHelper
             'index.php?option=com_expensemanager&view=consultants',
             $vName == 'consultants'
         );
-
+        
         JHtmlSidebar::addEntry(
             JText::_('COM_EXPENSEMANAGER_SUBMENU_CLIENTS'),
             'index.php?option=com_expensemanager&view=clients',
             $vName == 'clients'
         );
 
+        JHtmlSidebar::addEntry(
+            JText::_('COM_EXPENSEMANAGER_SUBMENU_CATEGORIES'),
+            'index.php?option=com_expensemanager&view=categories',
+            $vName == 'categories'
+        );
+
+        JHtmlSidebar::addEntry(
+            JText::_('COM_EXPENSEMANAGER_SUBMENU_EXPENSES'),
+            'index.php?option=com_expensemanager&view=expenses',
+            $vName == 'expenses'
+        );
     }
 }

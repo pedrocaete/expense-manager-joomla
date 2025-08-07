@@ -8,10 +8,9 @@
  * @license     GNU General Public License version 2
  */
 
-// Proteção contra acesso direto
 defined('_JEXEC') or die('Restricted access');
 
-class ExpenseManagerViewCities extends JViewLegacy
+class ExpenseManagerViewExpenses extends JViewLegacy
 {
     public $items;
     public $pagination;
@@ -34,7 +33,7 @@ class ExpenseManagerViewCities extends JViewLegacy
         }
 
         $this->addToolbar();
-        ExpenseManagerHelper::addSubmenu('cities'); 
+        ExpenseManagerHelper::addSubmenu('expenses');
         $this->sidebar = JHtmlSidebar::render();
 
         parent::display($tpl);
@@ -45,36 +44,33 @@ class ExpenseManagerViewCities extends JViewLegacy
         $canDo = ExpenseManagerHelper::getActions();
         $state = $this->get('State');
     
-        JToolbarHelper::title(JText::_('COM_EXPENSEMANAGER_CITIES_MANAGER'), 'location');
+        JToolbarHelper::title(JText::_('COM_EXPENSEMANAGER_EXPENSES_MANAGER'), 'copy'); // Ícone de 'documento'
     
         if ($state->get('filter.published') == -2)
         {
-            JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'cities.delete', 'JTOOLBAR_EMPTY_TRASH');
-            JToolbarHelper::publish('cities.publish', 'JTOOLBAR_PUBLISH', true);
+            JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'expenses.delete', 'JTOOLBAR_EMPTY_TRASH');
+            JToolbarHelper::publish('expenses.publish', 'JTOOLBAR_PUBLISH', true);
         }
         else
         {
             if ($canDo->get('core.create'))
             {
-                JToolbarHelper::addNew('city.add');
+                JToolbarHelper::addNew('expense.add');
             }
-    
             if (!empty($this->items))
             {
                 if ($canDo->get('core.edit'))
                 {
-                    JToolbarHelper::editList('city.edit');
+                    JToolbarHelper::editList('expense.edit');
                 }
-    
                 if ($canDo->get('core.edit.state'))
                 {
-                    JToolbarHelper::publish('cities.publish', 'JTOOLBAR_PUBLISH', true);
-                    JToolbarHelper::unpublish('cities.unpublish', 'JTOOLBAR_UNPUBLISH', true);
+                    JToolbarHelper::publish('expenses.publish', 'JTOOLBAR_PUBLISH', true);
+                    JToolbarHelper::unpublish('expenses.unpublish', 'JTOOLBAR_UNPUBLISH', true);
                 }
-    
                 if ($canDo->get('core.delete'))
                 {
-                    JToolbarHelper::trash('cities.trash', 'JTOOLBAR_TRASH');
+                    JToolbarHelper::trash('expenses.trash', 'JTOOLBAR_TRASH');
                 }
             }
         }

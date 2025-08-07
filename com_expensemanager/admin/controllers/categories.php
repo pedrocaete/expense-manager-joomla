@@ -10,11 +10,11 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-class ExpenseManagerControllerCities extends JControllerAdmin
+class ExpenseManagerControllerCategories extends JControllerAdmin
 {
-    protected $text_prefix = 'COM_EXPENSEMANAGER_CITIES';
+    protected $text_prefix = 'COM_EXPENSEMANAGER_CATEGORIES';
 
-    public function getModel($name = 'City', $prefix = 'ExpenseManagerModel', $config = array())
+    public function getModel($name = 'Category', $prefix = 'ExpenseManagerModel', $config = array())
     {
         $model = parent::getModel($name, $prefix, array('ignore_request' => true));
         return $model;

@@ -11,7 +11,7 @@
 // Proteção contra acesso direto
 defined('_JEXEC') or die('Restricted access');
 
-class ExpenseManagerViewCities extends JViewLegacy
+class ExpenseManagerViewCategories extends JViewLegacy
 {
     public $items;
     public $pagination;
@@ -34,7 +34,7 @@ class ExpenseManagerViewCities extends JViewLegacy
         }
 
         $this->addToolbar();
-        ExpenseManagerHelper::addSubmenu('cities'); 
+        ExpenseManagerHelper::addSubmenu('categories');
         $this->sidebar = JHtmlSidebar::render();
 
         parent::display($tpl);
@@ -45,36 +45,33 @@ class ExpenseManagerViewCities extends JViewLegacy
         $canDo = ExpenseManagerHelper::getActions();
         $state = $this->get('State');
     
-        JToolbarHelper::title(JText::_('COM_EXPENSEMANAGER_CITIES_MANAGER'), 'location');
+        JToolbarHelper::title(JText::_('COM_EXPENSEMANAGER_CATEGORIES_MANAGER'), 'stack'); // Ícone de 'pilha'
     
         if ($state->get('filter.published') == -2)
         {
-            JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'cities.delete', 'JTOOLBAR_EMPTY_TRASH');
-            JToolbarHelper::publish('cities.publish', 'JTOOLBAR_PUBLISH', true);
+            JToolbarHelper::deleteList('JGLOBAL_CONFIRM_DELETE', 'categories.delete', 'JTOOLBAR_EMPTY_TRASH');
+            JToolbarHelper::publish('categories.publish', 'JTOOLBAR_PUBLISH', true);
         }
         else
         {
             if ($canDo->get('core.create'))
             {
-                JToolbarHelper::addNew('city.add');
+                JToolbarHelper::addNew('category.add');
             }
-    
             if (!empty($this->items))
             {
                 if ($canDo->get('core.edit'))
                 {
-                    JToolbarHelper::editList('city.edit');
+                    JToolbarHelper::editList('category.edit');
                 }
-    
                 if ($canDo->get('core.edit.state'))
                 {
-                    JToolbarHelper::publish('cities.publish', 'JTOOLBAR_PUBLISH', true);
-                    JToolbarHelper::unpublish('cities.unpublish', 'JTOOLBAR_UNPUBLISH', true);
+                    JToolbarHelper::publish('categories.publish', 'JTOOLBAR_PUBLISH', true);
+                    JToolbarHelper::unpublish('categories.unpublish', 'JTOOLBAR_UNPUBLISH', true);
                 }
-    
                 if ($canDo->get('core.delete'))
                 {
-                    JToolbarHelper::trash('cities.trash', 'JTOOLBAR_TRASH');
+                    JToolbarHelper::trash('categories.trash', 'JTOOLBAR_TRASH');
                 }
             }
         }
