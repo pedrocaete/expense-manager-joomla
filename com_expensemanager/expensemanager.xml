@@ -3,8 +3,8 @@
     
     <name>com_expensemanager</name>
     <creationDate>2025-07-23</creationDate>
-    <author>Seu Nome</author>
-    <authorEmail>seu@email.com</authorEmail>
+    <author>Pedro Inácio Rodrigues Pontes</author>
+    <authorEmail>pedroinaciopontes@gmail.com</authorEmail>
     <authorUrl>http://seusite.com</authorUrl>
     <copyright>Copyright (C) 2025. Todos os direitos reservados.</copyright>
     <license>GNU General Public License version 2</license>
@@ -52,6 +52,7 @@
             <folder>tables</folder>
             <folder>helpers</folder>
             <folder>sql</folder>
+            <folder>libraries</folder>
         </files>
 
         <languages folder="admin/language">
