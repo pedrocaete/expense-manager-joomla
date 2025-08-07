@@ -41,7 +41,7 @@ class ExpenseManagerModelExpenses extends JModelList
         $query->select(
             $this->getState(
                 'list.select',
-                'a.id, a.description, a.amount, a.expense_date, a.published, a.ordering, a.checked_out, a.checked_out_time'
+                'a.id, a.description, a.amount, a.expense_date, a.invoice_number, a.published, a.ordering, a.checked_out, a.checked_out_time'
             )
         );
         $query->from('#__expensemanager_expenses AS a');

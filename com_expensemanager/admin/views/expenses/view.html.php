@@ -44,7 +44,12 @@ class ExpenseManagerViewExpenses extends JViewLegacy
         $canDo = ExpenseManagerHelper::getActions();
         $state = $this->get('State');
     
-        JToolbarHelper::title(JText::_('COM_EXPENSEMANAGER_EXPENSES_MANAGER'), 'copy'); // Ícone de 'documento'
+        JToolbarHelper::title(JText::_('COM_EXPENSEMANAGER_EXPENSES_MANAGER'), 'copy');
+
+        if (!empty($this->items))
+        {
+            JToolbarHelper::custom('expenses.exportPdf', 'download', 'download', 'COM_EXPENSEMANAGER_EXPORT_PDF', false);
+        }
     
         if ($state->get('filter.published') == -2)
         {
