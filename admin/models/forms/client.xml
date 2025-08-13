@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<form>
+    <fieldset name="details" label="COM_EXPENSEMANAGER_CLIENT_DETAILS_LABEL">
+
+        <field
+            name="name"
+            type="text"
+            label="COM_EXPENSEMANAGER_CLIENT_NAME_LABEL"
+            description="COM_EXPENSEMANAGER_CLIENT_NAME_DESC"
+            required="true"
+            filter="string" />
+        <field
+            name="client_type"
+            type="list"
+            label="COM_EXPENSEMANAGER_CLIENT_TYPE_LABEL"
+            default="municipality"
+            required="true">
+            <option value="municipality">COM_EXPENSEMANAGER_CLIENT_TYPE_MUNICIPALITY</option>
+            <option value="state_body">COM_EXPENSEMANAGER_CLIENT_TYPE_STATE_BODY</option>
+            <option value="other">COM_EXPENSEMANAGER_CLIENT_TYPE_OTHER</option>
+        </field>
+        <field
+            name="cnpj"
+            type="text"
+            label="COM_EXPENSEMANAGER_CLIENT_CNPJ_LABEL"
+            filter="string" />
+        <field
+            name="city_id"
+            type="sql"
+            label="COM_EXPENSEMANAGER_CLIENT_CITY_ID_LABEL"
+            query="SELECT id, name FROM #__expensemanager_cities WHERE published = 1 ORDER BY name"
+            key_field="id"
+            value_field="name"
+            required="true">
+            <option value="">COM_EXPENSEMANAGER_SELECT_CITY</option>
+        </field>
+        <field
+            name="contact_person"
+            type="text"
+            label="COM_EXPENSEMANAGER_CLIENT_CONTACT_PERSON_LABEL"
+            filter="string" />
+        <field
+            name="contact_email"
+            type="email"
+            label="COM_EXPENSEMANAGER_CLIENT_CONTACT_EMAIL_LABEL"
+            validate="email"
+            filter="string" />
+        <field
+            name="contact_phone"
+            type="text"
+            label="COM_EXPENSEMANAGER_CLIENT_CONTACT_PHONE_LABEL"
+            filter="string" />
+        <field
+            name="published"
+            type="list"
+            label="JSTATUS"
+            default="1">
+            <option value="1">JPUBLISHED</option>
+            <option value="0">JUNPUBLISHED</option>
+        </field>
+
+    </fieldset>
+
+    <fieldset name="metadata" label="JDETAILS">
+        <field
+            name="id"
+            type="text"
+            label="JGLOBAL_FIELD_ID_LABEL"
+            readonly="true"
+            class="readonly"
+            default="0" />
+        </fieldset>
+</form>
