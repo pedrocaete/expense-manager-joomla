@@ -111,6 +111,34 @@ CREATE TABLE IF NOT EXISTS `#__expensemanager_expenses` (
     KEY `idx_expense_date` (`expense_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
+-- Tabela de Visitas Técnicas
+CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visits` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `client_id` INT(11) NOT NULL,
+    `description` TEXT NOT NULL,
+    `visit_date` DATE NOT NULL,
+    `created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `created_by` INT(11) NOT NULL DEFAULT 0,
+    `modified` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+    `modified_by` INT(11) NOT NULL DEFAULT 0,
+    `published` TINYINT(1) NOT NULL DEFAULT 1,
+    `checked_out` INT(11) NOT NULL DEFAULT 0,
+    `checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+    PRIMARY KEY (`id`),
+    KEY `idx_client` (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
+-- Tabela de relacionamento N:N entre Visitas Técnicas e Consultores
+CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visit_consultants` (
+    `id` INT(11) NOT NULL AUTO_INCREMENT,
+    `technical_visit_id` INT(11) NOT NULL,
+    `consultant_id` INT(11) NOT NULL,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `unique_visit_consultant` (`technical_visit_id`, `consultant_id`),
+    KEY `idx_technical_visit` (`technical_visit_id`),
+    KEY `idx_consultant` (`consultant_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
 -- Inserir dados padrão para as categorias
 INSERT INTO `#__expensemanager_categories` (`name`, `description`, `created`, `published`, `ordering`) VALUES
 ('Hospedagem', 'Gastos com hotéis, pousadas e acomodações', NOW(), 1, 1),
