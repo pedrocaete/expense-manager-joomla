@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_EXPENSEMANAGER_MENU_TECHNICALVISIT_CREATE_TITLE" option="com_expensemanager_menu_technicalvisit_create_option">
+        <message>
+            <![CDATA[COM_EXPENSEMANAGER_MENU_TECHNICALVISIT_CREATE_DESC]]>
+        </message>
+    </layout>
+</metadata>
