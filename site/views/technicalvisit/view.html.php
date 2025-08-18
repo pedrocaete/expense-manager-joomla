@@ -20,6 +20,7 @@ class ExpenseManagerViewTechnicalvisit extends JViewLegacy
     {
         $this->form = $this->get('Form');
         $this->item = $this->get('Item');
+        JFactory::getDocument()->addStyleSheet(JUri::root() . 'components/com_expensemanager/css/style.css');
 
         if (count($errors = $this->get('Errors')))
         {

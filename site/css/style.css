@@ -1,0 +1,109 @@
+/*
+ * CSS Personalizado para o formulário de Visita Técnica
+ * Estrutura limpa, sem dependências de classes legadas do Joomla.
+ */
+
+/* Container principal do formulário */
+.technical-visit-form {
+    background-color: #f9f9f9;
+    padding: 25px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.technical-visit-form h1 {
+    border-bottom: 2px solid #005a9c;
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Layout de duas colunas com Flexbox */
+.form-columns {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px; /* Espaço entre as colunas */
+}
+
+.form-column {
+    width: 48%; /* Cada coluna ocupa quase metade do espaço */
+}
+
+/* Grupo de campo (Rótulo + Input) */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 8px;
+}
+
+/* Estilo para campos de texto, textarea e select (Chosen) */
+.form-group input[type="text"],
+.form-group textarea,
+.form-group .chzn-container {
+    width: 100% !important; /* Força a largura total do container */
+    box-sizing: border-box; /* Garante que padding não afete a largura */
+}
+
+.form-group input[type="text"],
+.form-group textarea,
+.form-group .chzn-container-single .chzn-single {
+    height: 38px !important;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.form-group textarea {
+    height: auto !important;
+    min-height: 125px;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+    outline: 0;
+}
+
+.form-group .input-append .btn.calendar {
+    display: none;
+}
+
+.form-group .input-append input[type="text"] {
+    border-radius: 4px !important;
+}
+
+
+/* Botão de salvar */
+.form-actions {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    text-align: right;
+}
+
+.form-actions .button-save {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.form-actions .button-save:hover {
+    background-color: #218838;
+}
