@@ -10,7 +10,7 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-sJHtml::_('behavior.formvalidation');
+JHtml::_('behavior.formvalidation');
 JHtml::_('behavior.keepalive');
 JHtml::_('formbehavior.chosen', 'select');
 ?>

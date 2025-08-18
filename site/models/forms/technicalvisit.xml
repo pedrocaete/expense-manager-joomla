@@ -1,4 +1,4 @@
-'<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <form>
     <fieldset name="details" label="COM_EXPENSEMANAGER_TECHNICALVISIT_DETAILS_LABEL">
 
@@ -34,8 +34,7 @@
             type="calendar"
             label="COM_EXPENSEMANAGER_TECHNICALVISIT_DATE_LABEL"
             required="true"
-            format="%Y-%m-%d"
-            showon="focus" />
+            format="%Y-%m-%d"/>
             
         <field
             name="description"
