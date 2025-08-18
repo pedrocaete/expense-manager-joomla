@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form>
+<form addrulepath="/components/com_expensemanager/models/rules">
     <fieldset name="details" label="COM_EXPENSEMANAGER_TECHNICALVISIT_DETAILS_LABEL">
 
         <field
@@ -34,7 +34,10 @@
             type="calendar"
             label="COM_EXPENSEMANAGER_TECHNICALVISIT_DATE_LABEL"
             required="true"
-            format="%Y-%m-%d"/>
+            format="%d/%m/%Y"
+            class="em-calendar-input"
+            filter="datefilter"
+        />
             
         <field
             name="description"

@@ -79,7 +79,7 @@
         <folder>controllers</folder>
         <folder>models</folder>
         <folder>views</folder>
-        <folder>css</folder>
+        <folder>assets</folder>
     </files>
 
 </extension>

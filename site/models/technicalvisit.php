@@ -11,9 +11,7 @@
 // Proteção contra acesso direto
 defined('_JEXEC') or die('Restricted access');
 
-jimport('joomla.application.component.modeladmin');
-
-class ExpenseManagerModelTechnicalvisit extends JModelAdmin
+class ExpenseManagerModelTechnicalvisit extends JModelForm
 {
     protected $text_prefix = 'COM_EXPENSEMANAGER_TECHNICALVISIT';
 
@@ -55,6 +53,12 @@ class ExpenseManagerModelTechnicalvisit extends JModelAdmin
 
     public function save($data)
     {
+        if (!empty($data['visit_date']))
+        {
+            $date = new JDate($data['visit_date'], JFactory::getUser()->getTimezone());
+            $data['visit_date'] = $date->toSql(true);
+        }
+
         $db = $this->getDbo();
         
         $consultantIds = isset($data['consultant_id']) ? (array) $data['consultant_id'] : array();
@@ -89,5 +93,38 @@ class ExpenseManagerModelTechnicalvisit extends JModelAdmin
         }
 
         return false;
+    }
+
+    public function getItem($pk = null)
+    {
+        $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
+
+        $table = $this->getTable();
+
+        if ($pk > 0)
+        {
+            if (!$table->load($pk))
+            {
+                $this->setError($table->getError());
+                return false;
+            }
+        }
+
+        $item = $table->getProperties(1);
+
+        if (!empty($item['id']))
+        {
+            $db    = $this->getDbo();
+            $query = $db->getQuery(true)
+                ->select($db->quoteName('consultant_id'))
+                ->from($db->quoteName('#__expensemanager_technical_visit_consultants'))
+                ->where($db->quoteName('technical_visit_id') . ' = ' . (int) $item['id']);
+
+            $db->setQuery($query);
+            
+            $item['consultant_id'] = $db->loadColumn();
+        }
+
+        return $item;
     }
 }

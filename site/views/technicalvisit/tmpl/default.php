@@ -9,10 +9,6 @@
  */
 
 defined('_JEXEC') or die('Restricted access');
-
-JHtml::_('behavior.formvalidation');
-JHtml::_('behavior.keepalive');
-JHtml::_('formbehavior.chosen', 'select');
 ?>
 
 <div class="technical-visit-form">
@@ -50,6 +46,7 @@ JHtml::_('formbehavior.chosen', 'select');
                 <?php echo JText::_('COM_EXPENSEMANAGER_SAVE_BUTTON'); ?>
             </button>
         </div>
+
 
         <?php echo $this->form->getInput('id'); ?>
         <input type="hidden" name="task" value="technicalvisit.save" />

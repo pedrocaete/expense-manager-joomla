@@ -20,7 +20,12 @@ class ExpenseManagerViewTechnicalvisit extends JViewLegacy
     {
         $this->form = $this->get('Form');
         $this->item = $this->get('Item');
-        JFactory::getDocument()->addStyleSheet(JUri::root() . 'components/com_expensemanager/css/style.css');
+
+        $doc = JFactory::getDocument();
+
+        $doc->addStyleSheet(JUri::root() . 'components/com_expensemanager/assets/css/style.css');
+        $doc->addScript(JUri::root() . 'components/com_expensemanager/assets/js/technicalvisit.js');
+
 
         if (count($errors = $this->get('Errors')))
         {
@@ -28,6 +33,7 @@ class ExpenseManagerViewTechnicalvisit extends JViewLegacy
             return false;
         }
         
+        JHtml::_('behavior.calendar');
         JHtml::_('behavior.formvalidation');
         JHtml::_('behavior.keepalive');
         JHtml::_('formbehavior.chosen', 'select');
