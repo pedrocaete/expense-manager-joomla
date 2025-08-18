@@ -10,7 +10,6 @@
 
 defined('_JEXEC') or die('Restricted access');
 
-JForm::addFormPath(JPATH_COMPONENT_SITE . '/models/forms');
 jimport('joomla.application.component.controller');
 
 $controller = JControllerLegacy::getInstance('ExpenseManager');
