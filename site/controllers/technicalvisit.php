@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package     ExpenseManager
  * @subpackage  Site
@@ -22,15 +23,14 @@ class ExpenseManagerControllerTechnicalvisit extends JControllerForm
         $user   = JFactory::getUser();
         $canCreate = $user->authorise('core.create', 'com_expensemanager');
 
-        if (!$canCreate)
-        {
+        if (!$canCreate) {
             $app->enqueueMessage(JText::_('JLIB_APPLICATION_ERROR_CREATE_RECORD_NOT_PERMITTED'), 'error');
             $this->setRedirect(JRoute::_('index.php?option=com_expensemanager&view=technicalvisit', false));
             return false;
         }
 
         $result = parent::save($key, $urlVar);
-        
+
         $this->setRedirect(
             JRoute::_('index.php?option=com_expensemanager&view=technicalvisit', false),
             $this->message

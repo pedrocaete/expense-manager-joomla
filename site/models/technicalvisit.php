@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package     ExpenseManager
  * @subpackage  Site
@@ -31,8 +32,7 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
             )
         );
 
-        if (empty($form))
-        {
+        if (empty($form)) {
             return false;
         }
 
@@ -45,25 +45,29 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
 
         if (empty($data))
         {
-            $data = $this->getItem();
-            $user = JFactory::getUser();
-            $data['consultant_id'] = [$user->id];
+            $item = $this->getItem();
+
+            if (empty($item->id)) {
+                $user = JFactory::getUser();
+                $item->consultant_id = array($user->id);
+            }
+            
+            $data = (array) $item;
         }
+
         return $data;
     }
 
     public function save($data)
     {
-        if (!empty($data['visit_date']))
-        {
+        if (!empty($data['visit_date'])) {
             $date = new JDate($data['visit_date'], JFactory::getUser()->getTimezone());
             $data['visit_date'] = $date->toSql(true);
         }
 
         $table = $this->getTable();
-        
-        if (!$table->bind($data) || !$table->store())
-        {
+
+        if (!$table->bind($data) || !$table->store()) {
             $this->setError($table->getError());
             return false;
         }
@@ -71,20 +75,18 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
         $db = $this->getDbo();
         $visitId = (int) $table->id;
         $consultantIds = isset($data['consultant_id']) ? (array) $data['consultant_id'] : array();
-        
+
         $query = $db->getQuery(true)
             ->delete($db->quoteName('#__expensemanager_technical_visit_consultants'))
             ->where($db->quoteName('technical_visit_id') . ' = ' . $visitId);
         $db->setQuery($query)->execute();
 
-        if (!empty($consultantIds))
-        {
+        if (!empty($consultantIds)) {
             $query->clear()
                 ->insert($db->quoteName('#__expensemanager_technical_visit_consultants'))
                 ->columns(array($db->quoteName('technical_visit_id'), $db->quoteName('consultant_id')));
 
-            foreach ($consultantIds as $consultantId)
-            {
+            foreach ($consultantIds as $consultantId) {
                 $query->values($visitId . ', ' . (int) $consultantId);
             }
 
@@ -96,34 +98,51 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
 
     public function getItem($pk = null)
     {
-        $pk = (!empty($pk)) ? $pk : (int) $this->getState($this->getName() . '.id');
-
-        $table = $this->getTable();
+        $pk = (!empty($pk)) ? $pk : (int) JFactory::getApplication()->input->getInt('id');
 
         if ($pk > 0)
         {
-            if (!$table->load($pk))
+            try
             {
-                $this->setError($table->getError());
+                $db    = $this->getDbo();
+                $query = $db->getQuery(true);
+
+                $query->select(
+                    array(
+                        'tv.*', // Pega todos os campos da tabela de visitas
+                        'c.name AS client_name',
+                        'GROUP_CONCAT(u.name SEPARATOR ", ") AS consultants'
+                    )
+                )
+                ->from($db->quoteName('#__expensemanager_technical_visits', 'tv'))
+                ->join('LEFT', $db->quoteName('#__expensemanager_clients', 'c') . ' ON c.id = tv.client_id')
+                ->join('LEFT', $db->quoteName('#__expensemanager_technical_visit_consultants', 'tvc') . ' ON tvc.technical_visit_id = tv.id')
+                ->join('LEFT', $db->quoteName('#__users', 'u') . ' ON u.id = tvc.consultant_id')
+                ->where('tv.id = ' . (int) $pk)
+                ->group('tv.id');
+
+                $db->setQuery($query);
+                $item = $db->loadObject(); // <--- A MUDANÇA MÁGICA: loadObject() retorna um objeto!
+
+                if ($item) {
+                    // Adiciona os IDs dos consultores para o formulário de edição, se necessário
+                    $query->clear()
+                        ->select($db->quoteName('consultant_id'))
+                        ->from($db->quoteName('#__expensemanager_technical_visit_consultants'))
+                        ->where($db->quoteName('technical_visit_id') . ' = ' . (int) $pk);
+                    $db->setQuery($query);
+                    $item->consultant_id = $db->loadColumn();
+                }
+
+                return $item;
+            }
+            catch (Exception $e)
+            {
+                $this->setError($e->getMessage());
                 return false;
             }
         }
 
-        $item = $table->getProperties(1);
-
-        if (!empty($item['id']))
-        {
-            $db    = $this->getDbo();
-            $query = $db->getQuery(true)
-                ->select($db->quoteName('consultant_id'))
-                ->from($db->quoteName('#__expensemanager_technical_visit_consultants'))
-                ->where($db->quoteName('technical_visit_id') . ' = ' . (int) $item['id']);
-
-            $db->setQuery($query);
-            
-            $item['consultant_id'] = $db->loadColumn();
-        }
-
-        return $item;
+        return new stdClass();
     }
 }
