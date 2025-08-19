@@ -23,9 +23,9 @@ class ExpenseManagerController extends JControllerLegacy
      */
     public function display($cachable = false, $urlparams = array())
     {
-        // Define a view padrão se não for especificada
+        // Define a view padrão para a lista (plural) se nenhuma for especificada na URL
         $input = JFactory::getApplication()->input;
-        $input->set('view', $input->getCmd('view', 'technicalvisit'));
+        $input->set('view', $input->getCmd('view', 'technicalvisits'));
 
         parent::display($cachable, $urlparams);
     }
