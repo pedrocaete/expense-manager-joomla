@@ -14,14 +14,6 @@ jimport('joomla.application.component.controllerform');
 
 class ExpenseManagerControllerTechnicalvisit extends JControllerForm
 {
-    /**
-     * Sobrescreve o método save para adicionar verificações de segurança e permissões.
-     *
-     * @param   string  $key     O nome da variável de POST para a chave primária.
-     * @param   string  $urlVar  O nome da variável de URL para a chave primária.
-     *
-     * @return  boolean  True em caso de sucesso, false em caso de erro.
-     */
     public function save($key = null, $urlVar = 'id')
     {
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));

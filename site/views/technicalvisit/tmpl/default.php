@@ -47,6 +47,7 @@ defined('_JEXEC') or die('Restricted access');
             </button>
         </div>
 
+        
 
         <?php echo $this->form->getInput('id'); ?>
         <input type="hidden" name="task" value="technicalvisit.save" />

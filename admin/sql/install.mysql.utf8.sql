@@ -14,23 +14,6 @@ CREATE TABLE IF NOT EXISTS `#__expensemanager_cities` (
     PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
--- Tabela de consultores
-CREATE TABLE IF NOT EXISTS `#__expensemanager_consultants` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `name` VARCHAR(255) NOT NULL DEFAULT '',
-    `email` VARCHAR(255) NOT NULL DEFAULT '',
-    `phone` VARCHAR(50) NOT NULL DEFAULT '',
-    `created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-    `created_by` INT(11) NOT NULL DEFAULT 0,
-    `modified` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-    `modified_by` INT(11) NOT NULL DEFAULT 0,
-    `published` TINYINT(1) NOT NULL DEFAULT 1,
-    `ordering` INT(11) NOT NULL DEFAULT 0,
-    `checked_out` INT(11) NOT NULL DEFAULT 0,
-    `checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
-
 -- Tabela de clientes (municípios/órgãos públicos)
 CREATE TABLE IF NOT EXISTS `#__expensemanager_clients` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,

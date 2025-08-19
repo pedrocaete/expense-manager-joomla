@@ -46,8 +46,9 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
         if (empty($data))
         {
             $data = $this->getItem();
+            $user = JFactory::getUser();
+            $data['consultant_id'] = [$user->id];
         }
-
         return $data;
     }
 
@@ -59,40 +60,38 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
             $data['visit_date'] = $date->toSql(true);
         }
 
-        $db = $this->getDbo();
+        $table = $this->getTable();
         
-        $consultantIds = isset($data['consultant_id']) ? (array) $data['consultant_id'] : array();
-        
-        if (parent::save($data))
+        if (!$table->bind($data) || !$table->store())
         {
-            $visitId = (int) $this->getState($this->getName() . '.id');
-
-            $query = $db->getQuery(true)
-                ->delete($db->quoteName('#__expensemanager_technical_visit_consultants'))
-                ->where($db->quoteName('technical_visit_id') . ' = ' . $visitId);
-            $db->setQuery($query)->execute();
-
-            if (!empty($consultantIds))
-            {
-                $query->clear()
-                    ->insert($db->quoteName('#__expensemanager_technical_visit_consultants'))
-                    ->columns(array(
-                        $db->quoteName('technical_visit_id'),
-                        $db->quoteName('consultant_id')
-                    ));
-
-                foreach ($consultantIds as $consultantId)
-                {
-                    $query->values($visitId . ', ' . (int) $consultantId);
-                }
-
-                $db->setQuery($query)->execute();
-            }
-
-            return true;
+            $this->setError($table->getError());
+            return false;
         }
 
-        return false;
+        $db = $this->getDbo();
+        $visitId = (int) $table->id;
+        $consultantIds = isset($data['consultant_id']) ? (array) $data['consultant_id'] : array();
+        
+        $query = $db->getQuery(true)
+            ->delete($db->quoteName('#__expensemanager_technical_visit_consultants'))
+            ->where($db->quoteName('technical_visit_id') . ' = ' . $visitId);
+        $db->setQuery($query)->execute();
+
+        if (!empty($consultantIds))
+        {
+            $query->clear()
+                ->insert($db->quoteName('#__expensemanager_technical_visit_consultants'))
+                ->columns(array($db->quoteName('technical_visit_id'), $db->quoteName('consultant_id')));
+
+            foreach ($consultantIds as $consultantId)
+            {
+                $query->values($visitId . ', ' . (int) $consultantId);
+            }
+
+            $db->setQuery($query)->execute();
+        }
+
+        return true;
     }
 
     public function getItem($pk = null)

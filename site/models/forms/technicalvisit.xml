@@ -22,12 +22,16 @@
             name="consultant_id"
             type="sql"
             label="COM_EXPENSEMANAGER_TECHNICALVISIT_CONSULTANT_ID_LABEL"
-            query="SELECT id, name FROM #__expensemanager_consultants WHERE published = 1 ORDER BY name"
+            query="SELECT u.id, u.name FROM #__users u 
+            JOIN #__user_usergroup_map m ON m.user_id = u.id 
+            WHERE m.group_id = 10
+            ORDER BY u.name"
             key_field="id"
             value_field="name"
             multiple="true"
             required="true"
-            />
+        />
+         <!-- Obs: group_id 10 é o de consultores -->
 
         <field
             name="visit_date"
