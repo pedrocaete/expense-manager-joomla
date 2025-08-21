@@ -11,8 +11,8 @@
 defined('_JEXEC') or die('Restricted access');
 ?>
 
-<div class="technical-visit-form">
-    <h1><?php echo JText::_('COM_EXPENSEMANAGER_TECHNICALVISIT_FORM_TITLE'); ?></h1>
+<div class="technical-visit">
+    <h1 class="com_sagp-title"><?php echo JText::_('COM_EXPENSEMANAGER_TECHNICALVISIT_FORM_TITLE'); ?></h1>
 
     <form action="<?php echo JRoute::_('index.php?option=com_expensemanager&task=technicalvisit.save'); ?>" method="post" name="adminForm" id="technicalvisit-form" class="form-validate">
         
@@ -26,13 +26,13 @@ defined('_JEXEC') or die('Restricted access');
                     <?php echo $this->form->getLabel('consultant_id'); ?>
                     <?php echo $this->form->getInput('consultant_id'); ?>
                 </div>
-            </div>
-
-            <div class="form-column">
                 <div class="form-group">
                     <?php echo $this->form->getLabel('visit_date'); ?>
                     <?php echo $this->form->getInput('visit_date'); ?>
                 </div>
+            </div>
+
+            <div class="form-column">
                 <div class="form-group">
                     <?php echo $this->form->getLabel('description'); ?>
                     <?php echo $this->form->getInput('description'); ?>
@@ -41,7 +41,7 @@ defined('_JEXEC') or die('Restricted access');
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="button-save validate">
+            <button type="submit" class="com_sagp-button validate">
                 <span class="icon-ok" aria-hidden="true"></span>
                 <?php echo JText::_('COM_EXPENSEMANAGER_SAVE_BUTTON'); ?>
             </button>

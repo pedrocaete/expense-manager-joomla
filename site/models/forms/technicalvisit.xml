@@ -38,7 +38,6 @@
             type="calendar"
             label="COM_EXPENSEMANAGER_TECHNICALVISIT_DATE_LABEL"
             required="true"
-            format="%d/%m/%Y"
             class="em-calendar-input"
             filter="datefilter"
         />
@@ -49,7 +48,15 @@
             label="COM_EXPENSEMANAGER_TECHNICALVISIT_DESCRIPTION_LABEL"
             required="true"
             rows="5"
-            filter="string" />
+            filter="string"
+        />
+
+        <field
+            name="personalized_description"
+            type="editor"
+            label="COM_EXPENSEMANAGER_TECHNICALVISIT_PERZONALIZED_DESCRIPTION_LABEL"
+            required="true"
+        />
 
     </fieldset>
 </form>

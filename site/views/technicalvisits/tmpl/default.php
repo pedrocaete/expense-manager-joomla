@@ -1,69 +1,94 @@
-<?php
-defined('_JEXEC') or die('Restricted access');
-JHtml::_('behavior.tooltip');
+<?php $pdfUrlAll = JRoute::_('index.php?option=com_expensemanager&view=technicalvisits&format=pdf'); ?>
 
-$pdfUrlAll = JRoute::_('index.php?option=com_expensemanager&view=technicalvisits&format=pdf');
-?>
-<form action="<?php echo JRoute::_('index.php?option=com_expensemanager&view=technicalvisits'); ?>" method="post" name="adminForm" id="adminForm">
-    <div class="page-header">
-        <h1>Minhas Visitas Técnicas</h1>
-    </div>
+<div class="technical-visit">
+    <h1 class="com_sagp-title"><?php echo JText::_('COM_EXPENSEMANAGER_TECHNICALVISIT_LIST_TITLE'); ?></h1>
 
-    <div class="em-form-actions" style="margin-bottom: 20px; text-align: right;">
-        <a href="<?php echo $pdfUrlAll; ?>" target="_blank" class="btn btn-info">
-            <span class="icon-download" aria-hidden="true"></span>
-            Baixar Relatório Geral
-        </a>
-    </div>
+    <form action="<?php echo JRoute::_('index.php?option=com_expensemanager&view=technicalvisits'); ?>" method="post" name="adminForm" id="adminForm">
+        <div class="list">
 
-    <table class="table table-striped table-hover">
-        <thead>
-            <tr>
-                <th width="5%">ID</th>
-                <th width="15%">Data da Visita</th>
-                <th>Cliente</th>
-                <th>Consultores Associados</th>
-                <th width="15%" class="text-center">Ação</th>
-            </tr>
-        </thead>
-        <tbody>
+            <div class="grid-table header">
+                <div>ID</div>
+                <div>Data da Visita</div>
+                <div>Cliente</div>
+                <div>Consultores Associados</div>
+                <div class="text-center">Ação</div>
+            </div>
+
             <?php if (!empty($this->items)) : ?>
                 <?php foreach ($this->items as $i => $item) : ?>
                     <?php
                     $pdfUrlIndividual = JRoute::_('index.php?option=com_expensemanager&view=technicalvisit&id=' . (int) $item->id . '&format=pdf');
                     ?>
-                    <tr class="row<?php echo $i % 2; ?>">
-                        <td><?php echo $item->id; ?></td>
-                        <td><?php echo JHtml::_('date', $item->visit_date, 'd/m/Y'); ?></td>
-                        <td><?php echo $this->escape($item->client_name); ?></td>
-                        <td><?php echo $this->escape($item->consultants); ?></td>
-                        <td class="text-center">
-                            <a href="<?php echo $pdfUrlIndividual; ?>" class="btn btn-primary btn-small" target="_blank">
-                                <span class="icon-file" aria-hidden="true"></span>
-                                Gerar PDF
+                    <div class="grid-table row">
+                        <div><?php echo $item->id; ?></div>
+                        <div><?php echo JHtml::_('date', $item->visit_date, 'd/m/Y'); ?></div>
+                        <div><?php echo $this->escape($item->client_name); ?></div>
+                        <div><?php echo $this->escape($item->consultants); ?></div>
+                        <div class="text-center">
+                            <a href="<?php echo $pdfUrlIndividual; ?>" class="com_sagp-button" target="_blank">
+                                <i class="fa fa-download"></i>
                             </a>
-                        </td>
-                    </tr>
+                        </div>
+                    </div>
                 <?php endforeach; ?>
             <?php else : ?>
-                <tr class="row0">
-                    <td colspan="5" class="text-center">
+                <div class="grid-table empty">
+                    <div class="no-data" style="grid-column: 1 / -1; text-align: center;">
                         Nenhuma visita técnica encontrada.
-                    </td>
-                </tr>
+                    </div>
+                </div>
             <?php endif; ?>
-        </tbody>
-        <tfoot>
-            <tr>
-                <td colspan="5">
-                    <?php echo $this->pagination->getListFooter(); ?>
-                </td>
-            </tr>
-        </tfoot>
-    </table>
 
-    <div>
-        <input type="hidden" name="task" value="" />
-        <?php echo JHtml::_('form.token'); ?>
-    </div>
-</form>
+
+            <?php if ($this->pagination->pagesTotal > 1) : ?>
+                <div class="pagination-buttons">
+
+                    <?php if ($this->pagination->pagesCurrent > 1) : ?>
+                        <a class="com_sagp-button" href="<?php echo JRoute::_($this->prevUrl); ?>">
+                            &laquo;
+                        </a>
+                    <?php endif; ?>
+
+                    <?php if ($this->pagination->pagesTotal < 5) : ?>
+                        <?php for ($page = 1; $page <= $this->pagination->pagesTotal; $page++) : ?>
+                            <a class="com_sagp-page-index" href="#">
+                                <?php echo $page; ?>
+                            </a>
+                        <?php endfor; ?>
+                    <?php else : ?>
+                        <a class="com_sagp-page-index" href="#">1</a>
+                        <a class="com_sagp-page-index" href="#">2</a>
+                        <span>...</span>
+                        <a class="com_sagp-page-index" href="#">
+                            <?php echo $this->pagination->pagesTotal - 1; ?>
+                        </a>
+                        <a class="com_sagp-page-index" href="#">
+                            <?php echo $this->pagination->pagesTotal; ?>
+                        </a>
+                    <?php endif; ?>
+
+
+                    <?php if ($this->pagination->pagesCurrent < $this->pagination->pagesTotal) : ?>
+                        <a class="com_sagp-button" href="<?php echo JRoute::_($this->nextUrl); ?>">
+                            &raquo;
+                        </a>
+                    <?php endif; ?>
+                </div>
+            <?php endif; ?>
+
+
+            <div>
+                <a href="<?php echo $pdfUrlAll; ?>" target="_blank" class="download-button com_sagp-button">
+                    <span class="icon-download" aria-hidden="true"></span>
+                    Baixar Relatório Geral
+                </a>
+            </div>
+
+
+            <div>
+                <input type="hidden" name="task" value="" />
+                <?php echo JHtml::_('form.token'); ?>
+            </div>
+        </div>
+    </form>
+</div>

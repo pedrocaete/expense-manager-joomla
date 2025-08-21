@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <metadata>
-    <layout title="COM_EXPENSEMANAGER_MENU_TECHNICALVISIT_VIEW_TITLE">
+    <layout title="COM_EXPENSEMANAGER_MENU_TECHNICALVISIT_LIST_CREATE_TITLE">
         <message>
-            <![CDATA[COM_EXPENSEMANAGER_MENU_TECHNICALVISIT_VIEW_DESC]]>
+            <![CDATA[COM_EXPENSEMANAGER_MENU_TECHNICALVISIT_LIST_CREATE_DESC]]>
         </message>
     </layout>
 </metadata>

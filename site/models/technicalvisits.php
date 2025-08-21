@@ -46,4 +46,23 @@ class ExpensemanagerModelTechnicalvisits extends JModelList
 
         return $query;
     }
+
+    
+
+    protected function populateState($ordering = null, $direction = null)
+    {
+        parent::populateState($ordering, $direction);
+
+        $app = JFactory::getApplication();
+
+        $limit = 3;
+        $this->setState('list.limit', $limit);
+
+        $limitstart = $app->input->getInt('limitstart', 0);
+        $this->setState('list.start', $limitstart);
+    
+        $this->setState('list.ordering', 'visit_date');
+        $this->setState('list_direction', 'DESC');
+    }
+
 }

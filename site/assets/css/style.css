@@ -1,10 +1,5 @@
-/*
- * CSS Personalizado para o formulário de Visita Técnica
- * Estrutura limpa, sem dependências de classes legadas do Joomla.
- */
 
-/* Container principal do formulário */
-.technical-visit-form {
+.technical-visit {
     background-color: #f9f9f9;
     padding: 25px;
     border-radius: 8px;
@@ -13,26 +8,24 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.technical-visit-form h1 {
+.com_sagp-title{
     border-bottom: 2px solid #005a9c;
     padding-bottom: 10px;
     margin-bottom: 25px;
-    font-size: 24px;
+    font-size: 32px;
     color: #333;
 }
 
-/* Layout de duas colunas com Flexbox */
 .form-columns {
     display: flex;
     justify-content: space-between;
-    gap: 30px; /* Espaço entre as colunas */
+    gap: 30px;
 }
 
 .form-column {
-    width: 48%; /* Cada coluna ocupa quase metade do espaço */
+    width: 48%;
 }
 
-/* Grupo de campo (Rótulo + Input) */
 .form-group {
     margin-bottom: 20px;
 }
@@ -44,12 +37,11 @@
     margin-bottom: 8px;
 }
 
-/* Estilo para campos de texto, textarea e select (Chosen) */
 .form-group input[type="text"],
 .form-group textarea,
 .form-group .chzn-container {
-    width: 100% !important; /* Força a largura total do container */
-    box-sizing: border-box; /* Garante que padding não afete a largura */
+    width: 100% !important;
+    box-sizing: border-box;
 }
 
 .form-group input[type="text"],
@@ -84,7 +76,6 @@
 }
 
 
-/* Botão de salvar */
 .form-actions {
     margin-top: 30px;
     padding-top: 20px;
@@ -92,18 +83,121 @@
     text-align: right;
 }
 
-.form-actions .button-save {
-    padding: 10px 20px;
+.com_sagp-button {
+    background-color: #232323;
+    padding: 7px 17px;
+    color: #ffffff;
+    font-family: Arial;
+    text-transform: uppercase;
+    text-decoration: none;
     font-size: 16px;
-    border-radius: 5px;
-    background-color: #28a745;
-    border: none;
-    color: white;
     font-weight: bold;
+    border: 0;
     cursor: pointer;
-    transition: background-color 0.2s;
+    border-radius: 5px;
+    border: 1px solid #727272;
 }
 
-.form-actions .button-save:hover {
-    background-color: #218838;
+.com_sagp-button-save:hover {
+    transition: linear 150ms;
+    color: #FFF;
+    text-decoration: none;
+    background-color: #727272;
+    border-color: #EEE;
 }
+
+.grid-table {
+    display: grid;
+    grid-template-columns: 5% 13% 0.5fr 1fr 20%;
+    gap: 8px;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
+    padding: 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+  
+.grid-table.header {
+    font-weight: bold;
+    background: #f1f5f9;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+  
+.grid-table.row:nth-child(even) {
+    background: #f9fafb;
+}
+.grid-table.row:hover {
+    background: #e2e8f0;
+}
+  
+.grid-table.footer {
+    background: #f8fafc;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin-top: 8px;
+}
+  
+.no-data {
+    font-style: italic;
+    color: #64748b;
+    padding: 16px;
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+.pagination-buttons {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.pagination-buttons a {
+    background-color: #232323;
+    padding: 8px 18px;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #727272;
+    transition: 0.2s;
+}
+
+.pagination-buttons a:hover {
+    background-color: #727272;
+    border-color: #eee;
+}
+
+  
+@media (max-width: 900px) {
+    .grid-table {
+        grid-template-columns: 1fr 1fr;
+        text-align: left;
+        justify-items: start;
+    }
+    .grid-table.header {
+        display: none;
+    }
+    .grid-table.row {
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        padding: 12px;
+        grid-template-columns: 1fr;
+    }
+    .grid-table.row > div {
+        padding: 4px 0;
+        border-bottom: 1px solid #eee;
+        width: 100%;
+    }
+    .grid-table.row > div:last-child {
+        border-bottom: none;
+    }
+}
+  
