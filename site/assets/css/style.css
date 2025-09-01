@@ -195,6 +195,10 @@
 #jform_personalized_description {
     height: 300px !important;
 }
+
+button[id$="_btn"] {
+    display: none !important;
+}
   
 @media (max-width: 900px) {
     .grid-table {

@@ -71,12 +71,14 @@
             name="contract_start_date"
             type="calendar"
             label="COM_EXPENSEMANAGER_CONTRACT_START_DATE_LABEL"
+            class="em-calendar-input"
             filter="datefilter"
         />
         <field
             name="contract_end_date"
             type="calendar"
             label="COM_EXPENSEMANAGER_CONTRACT_END_DATE_LABEL"
+            class="em-calendar-input"
             filter="datefilter"
         />
     </fieldset>
@@ -107,6 +109,7 @@
             name="loa_date"
             type="calendar"
             label="COM_EXPENSEMANAGER_LOA_DATE_LABEL"
+            class="em-calendar-input"
             filter="datefilter"
         />
         <field
@@ -119,6 +122,7 @@
             name="ldo_date"
             type="calendar"
             label="COM_EXPENSEMANAGER_LDO_DATE_LABEL"
+            class="em-calendar-input"
             filter="datefilter"
         />
         <field
@@ -131,7 +135,9 @@
             name="ppa_date"
             type="calendar"
             label="COM_EXPENSEMANAGER_PPA_DATE_LABEL"
+            class="em-calendar-input"
             filter="datefilter"
         />
     </fieldset>
 </form>
+

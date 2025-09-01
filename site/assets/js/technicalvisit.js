@@ -1,20 +1,18 @@
 /**
  * @package     ExpenseManager
- * @description Adiciona máscara de data e interatividade do campo de calendário.
- * @version     2.0.0 (final e robusta)
+ * @description Aplica máscara de data e interatividade a todos os campos de calendário com a classe .em-calendar-input.
+ * @version     3.0.0 (Reutilizável)
  */
 
  (function() {
-    window.addEventListener('load', function() {
+    document.addEventListener('DOMContentLoaded', function() {
         
         try {
-            const dateField = document.getElementById('jform_visit_date');
+            const dateFields = document.querySelectorAll('.em-calendar-input');
 
-            if (!dateField) {
+            if (!dateFields.length) {
                 return;
             }
-
-            dateField.removeAttribute('readonly');
 
             const applyDateMask = function(event) {
                 let input = event.target;
@@ -25,31 +23,37 @@
                     maskedValue = value.substring(0, 2);
                 }
                 if (value.length > 2) {
-                    maskedValue = value.substring(0, 2) + '/' + value.substring(2, 4);
+                    maskedValue += '/' + value.substring(2, 4);
                 }
                 if (value.length > 4) {
-                    maskedValue = value.substring(0, 2) + '/' + value.substring(2, 4) + '/' + value.substring(4, 8);
+                    maskedValue += '/' + value.substring(4, 8);
                 }
                 
                 input.value = maskedValue;
             };
 
-            const openCalendar = function() {
-                const calendarButton = document.getElementById('jform_visit_date_btn');
+            const openCalendar = function(event) {
+                const fieldId = event.target.id;
+                const calendarButton = document.getElementById(fieldId + '_btn');
                 
                 if (calendarButton) {
                     calendarButton.click();
                 } 
                 else {
-                    console.error('Botão do calendário (#jform_visit_date_btn) não encontrado.');
+                    console.error('Botão do calendário correspondente não encontrado para o campo:', fieldId);
                 }
             };
 
-            dateField.addEventListener('input', applyDateMask);
-            dateField.addEventListener('click', openCalendar);
+            dateFields.forEach(function(dateField) {
+                dateField.removeAttribute('readonly');
+
+                dateField.addEventListener('input', applyDateMask);
+                
+                dateField.addEventListener('click', openCalendar);
+            });
 
         } catch (e) {
-            console.error('Ocorreu um erro no script technicalvisit.js:', e);
+            console.error('Ocorreu um erro no script de inicialização dos campos de data:', e);
         }
     });
 })();

@@ -15,8 +15,10 @@
             label="COM_EXPENSEMANAGER_CLIENT_TYPE_LABEL"
             default="municipality"
             required="true">
-            <option value="municipality">COM_EXPENSEMANAGER_CLIENT_TYPE_MUNICIPALITY</option>
-            <option value="state_body">COM_EXPENSEMANAGER_CLIENT_TYPE_STATE_BODY</option>
+            <option value="prefeitura">COM_EXPENSEMANAGER_CLIENT_TYPE_CITY_HALL</option>
+            <option value="camara_municipal">COM_EXPENSEMANAGER_CLIENT_TYPE_CITY_COUNCIL</option>
+            <option value="consorcio">COM_EXPENSEMANAGER_CLIENT_TYPE_CONSORTIUM</option>
+            <option value="autarquia">COM_EXPENSEMANAGER_CLIENT_TYPE_AUTONOMUS_AGENCY</option>
             <option value="other">COM_EXPENSEMANAGER_CLIENT_TYPE_OTHER</option>
         </field>
         <field

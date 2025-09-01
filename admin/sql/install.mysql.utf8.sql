@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `#__expensemanager_cities` (
 CREATE TABLE IF NOT EXISTS `#__expensemanager_clients` (
     `id` INT(11) NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(255) NOT NULL DEFAULT '',
-    `client_type` VARCHAR(100) NOT NULL DEFAULT 'municipality',
+    `client_type` VARCHAR(100) NOT NULL DEFAULT 'prefeitura',
     `cnpj` VARCHAR(18) NOT NULL DEFAULT '',
     `city_id` INT(11) NOT NULL DEFAULT 0,
     `contact_person` VARCHAR(255) NOT NULL DEFAULT '',
