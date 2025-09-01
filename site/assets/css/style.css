@@ -173,6 +173,20 @@
     border-color: #eee;
 }
 
+.form-separator {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 30px 0;
+}
+
+.fieldset-title {
+    font-size: 24px;
+    color: #005a9c;
+    margin-top: 25px;
+    margin-bottom: 20px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #ddd;
+}
   
 @media (max-width: 900px) {
     .grid-table {

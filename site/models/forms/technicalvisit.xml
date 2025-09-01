@@ -59,4 +59,79 @@
         />
 
     </fieldset>
+
+    <fieldset name="contract_details" label="COM_EXPENSEMANAGER_CONTRACT_DETAILS_LABEL">
+        <field
+            name="contract_number"
+            type="text"
+            label="COM_EXPENSEMANAGER_CONTRACT_NUMBER_LABEL"
+            filter="string"
+        />
+        <field
+            name="contract_start_date"
+            type="calendar"
+            label="COM_EXPENSEMANAGER_CONTRACT_START_DATE_LABEL"
+            filter="datefilter"
+        />
+        <field
+            name="contract_end_date"
+            type="calendar"
+            label="COM_EXPENSEMANAGER_CONTRACT_END_DATE_LABEL"
+            filter="datefilter"
+        />
+    </fieldset>
+
+    <fieldset name="bidding_details" label="COM_EXPENSEMANAGER_BIDDING_DETAILS_LABEL">
+        <field
+            name="bidding_process_number"
+            type="text"
+            label="COM_EXPENSEMANAGER_BIDDING_PROCESS_NUMBER_LABEL"
+            filter="string"
+        />
+        <field
+            name="bidding_process_year"
+            type="text"
+            label="COM_EXPENSEMANAGER_BIDDING_PROCESS_YEAR_LABEL"
+            filter="integer"
+        />
+    </fieldset>
+
+    <fieldset name="legal_instruments" label="COM_EXPENSEMANAGER_LEGAL_INSTRUMENTS_LABEL">
+        <field
+            name="loa_number"
+            type="text"
+            label="COM_EXPENSEMANAGER_LOA_NUMBER_LABEL"
+            filter="string"
+        />
+        <field
+            name="loa_date"
+            type="calendar"
+            label="COM_EXPENSEMANAGER_LOA_DATE_LABEL"
+            filter="datefilter"
+        />
+        <field
+            name="ldo_number"
+            type="text"
+            label="COM_EXPENSEMANAGER_LDO_NUMBER_LABEL"
+            filter="string"
+        />
+        <field
+            name="ldo_date"
+            type="calendar"
+            label="COM_EXPENSEMANAGER_LDO_DATE_LABEL"
+            filter="datefilter"
+        />
+        <field
+            name="ppa_number"
+            type="text"
+            label="COM_EXPENSEMANAGER_PPA_NUMBER_LABEL"
+            filter="string"
+        />
+        <field
+            name="ppa_date"
+            type="calendar"
+            label="COM_EXPENSEMANAGER_PPA_DATE_LABEL"
+            filter="datefilter"
+        />
+    </fieldset>
 </form>
