@@ -94,37 +94,37 @@ CREATE TABLE IF NOT EXISTS `#__expensemanager_expenses` (
     KEY `idx_expense_date` (`expense_date`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
--- Tabela de Visitas Técnicas
 CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visits` (
-    `id` INT(11) NOT NULL AUTO_INCREMENT,
-    `client_id` INT(11) NOT NULL,
-    `description` TEXT NOT NULL,
-    `visit_date` DATE NOT NULL,
-    
-    `contract_number` VARCHAR(255) DEFAULT NULL,
-    `contract_start_date` DATE DEFAULT NULL,
-    `contract_end_date` DATE DEFAULT NULL,
-    `bidding_process_number` VARCHAR(255) DEFAULT NULL,
-    `bidding_process_year` YEAR(4) DEFAULT NULL,
-    `loa_number` VARCHAR(255) DEFAULT NULL,
-    `ldo_number` VARCHAR(255) DEFAULT NULL,
-    `ppa_number` VARCHAR(255) DEFAULT NULL,
-    `loa_date` DATE DEFAULT NULL,
-    `ldo_date` DATE DEFAULT NULL,
-    `ppa_date` DATE DEFAULT NULL,
-    
-    `created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-    `created_by` INT(11) NOT NULL DEFAULT 0,
-    `modified` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-    `modified_by` INT(11) NOT NULL DEFAULT 0,
-    `published` TINYINT(1) NOT NULL DEFAULT 1,
-    `checked_out` INT(11) NOT NULL DEFAULT 0,
-    `checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
-    
-    PRIMARY KEY (`id`),
-    KEY `idx_client` (`client_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `client_id` INT(11) NOT NULL,
+  `description` TEXT NOT NULL,
+  `analysis_start_date` DATE NOT NULL,
+  `analysis_end_date` DATE DEFAULT NULL,
+  `reference_month` TINYINT(2) DEFAULT NULL,
+  `reference_year` SMALLINT(4) DEFAULT NULL,
 
+  `contract_number` VARCHAR(255) DEFAULT NULL,
+  `contract_start_date` DATE DEFAULT NULL,
+  `contract_end_date` DATE DEFAULT NULL,
+  `bidding_process_number` VARCHAR(255) DEFAULT NULL,
+  `bidding_process_year` YEAR(4) DEFAULT NULL,
+  `loa_number` VARCHAR(255) DEFAULT NULL,
+  `ldo_number` VARCHAR(255) DEFAULT NULL,
+  `ppa_number` VARCHAR(255) DEFAULT NULL,
+  `loa_date` DATE DEFAULT NULL,
+  `ldo_date` DATE DEFAULT NULL,
+  `ppa_date` DATE DEFAULT NULL,
+  
+  `created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `created_by` INT(11) NOT NULL DEFAULT 0,
+  `modified` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` INT(11) NOT NULL DEFAULT 0,
+  `published` TINYINT(1) NOT NULL DEFAULT 1,
+  `checked_out` INT(11) NOT NULL DEFAULT 0,
+  `checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`),
+  KEY `idx_client` (`client_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
 
 -- Tabela de relacionamento N:N entre Visitas Técnicas e Consultores
 CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visit_consultants` (

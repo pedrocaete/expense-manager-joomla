@@ -31,15 +31,37 @@
             multiple="true"
             required="true"
         />
-         <!-- Obs: group_id 10 é o de consultores -->
 
-        <field
-            name="visit_date"
+        <field 
+            name="analysis_start_date"
             type="calendar"
-            label="COM_EXPENSEMANAGER_TECHNICALVISIT_DATE_LABEL"
+            label="COM_EXPENSEMANAGER_ANALYSIS_START_DATE_LABEL"
             required="true"
             class="em-calendar-input"
             filter="datefilter"
+        />
+        
+        <field 
+            name="analysis_end_date"
+            type="calendar"
+            label="COM_EXPENSEMANAGER_ANALYSIS_END_DATE_LABEL"
+            required="true"
+            class="em-calendar-input"
+            filter="datefilter"
+        />
+
+        <field
+            name="reference_month"
+            type="text"
+            label="COM_EXPENSEMANAGER_REFERENCE_MONTH_LABEL"
+            filter="integer"
+        />
+        
+        <field
+            name="reference_year"
+            type="text"
+            label="COM_EXPENSEMANAGER_REFERENCE_YEAR_LABEL"
+            filter="integer"
         />
             
         <field

@@ -1,14 +1,4 @@
 <?php
-
-/**
- * @package     ExpenseManager
- * @subpackage  Site
- * @version     1.0.0
- * @author      Pedro Inácio Rodrigues Pontes
- * @copyright   Copyright (C) 2025. Todos os direitos reservados.
- * @license     GNU General Public License version 2
- */
-
 defined('_JEXEC') or die('Restricted access');
 ?>
 
@@ -24,24 +14,45 @@ defined('_JEXEC') or die('Restricted access');
                     <?php echo $this->form->getLabel('client_id'); ?>
                     <?php echo $this->form->getInput('client_id'); ?>
                 </div>
-                <div class="form-group">
-                    <?php echo $this->form->getLabel('consultant_id'); ?>
-                    <?php echo $this->form->getInput('consultant_id'); ?>
-                </div>
-                <div class="form-group">
-                    <?php echo $this->form->getLabel('visit_date'); ?>
-                    <?php echo $this->form->getInput('visit_date'); ?>
-                </div>
             </div>
             <div class="form-column">
-                <div class="form-group">
-                    <?php echo $this->form->getLabel('description'); ?>
-                    <?php echo $this->form->getInput('description'); ?>
+                 <div class="form-group">
+                    <?php echo $this->form->getLabel('consultant_id'); ?>
+                    <?php echo $this->form->getInput('consultant_id'); ?>
                 </div>
             </div>
         </div>
 
-        <div>
+        <!-- Período de Análise e Referência -->
+        <div class="form-columns">
+            <div class="form-column">
+                <div class="form-group">
+                    <?php echo $this->form->getLabel('analysis_start_date'); ?>
+                    <?php echo $this->form->getInput('analysis_start_date'); ?>
+                </div>
+                 <div class="form-group">
+                    <?php echo $this->form->getLabel('reference_month'); ?>
+                    <?php echo $this->form->getInput('reference_month'); ?>
+                </div>
+            </div>
+             <div class="form-column">
+                 <div class="form-group">
+                    <?php echo $this->form->getLabel('analysis_end_date'); ?>
+                    <?php echo $this->form->getInput('analysis_end_date'); ?>
+                </div>
+                 <div class="form-group">
+                    <?php echo $this->form->getLabel('reference_year'); ?>
+                    <?php echo $this->form->getInput('reference_year'); ?>
+                </div>
+            </div>
+        </div>
+
+        <!-- Descrições -->
+        <div class="form-group">
+            <?php echo $this->form->getLabel('description'); ?>
+            <?php echo $this->form->getInput('description'); ?>
+        </div>
+        <div class="form-group-editor">
             <?php echo $this->form->getLabel('personalized_description'); ?>
             <?php echo $this->form->getInput('personalized_description'); ?>
         </div>

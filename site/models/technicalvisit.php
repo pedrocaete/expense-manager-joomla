@@ -1,15 +1,4 @@
 <?php
-
-/**
- * @package     ExpenseManager
- * @subpackage  Site
- * @version     1.0.0
- * @author      Pedro Inácio Rodrigues Pontes
- * @copyright   Copyright (C) 2025. Todos os direitos reservados.
- * @license     GNU General Public License version 2
- */
-
-// Proteção contra acesso direto
 defined('_JEXEC') or die('Restricted access');
 
 class ExpenseManagerModelTechnicalvisit extends JModelForm
@@ -18,14 +7,11 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
 
     public function getTable($type = 'Technicalvisit', $prefix = 'ExpenseManagerTable', $config = array())
     {
-        // Esta função carrega a tabela do banco de dados correspondente.
-        // O Joomla procura por um arquivo em administrator/tables/technicalvisit.php
         return JTable::getInstance($type, $prefix, $config);
     }
 
     public function getForm($data = array(), $loadData = true)
     {
-        // Carrega o arquivo XML do formulário que definimos nos primeiros passos.
         $form = $this->loadForm(
             'com_expensemanager.technicalvisit',
             'technicalvisit',
@@ -44,14 +30,12 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
 
     protected function loadFormData()
     {
-        // Carrega os dados para o formulário, seja de um item existente ou de um novo.
         $data = JFactory::getApplication()->getUserState('com_expensemanager.edit.technicalvisit.data', array());
 
         if (empty($data))
         {
             $item = $this->getItem();
 
-            // Se for um novo item, pré-seleciona o consultor logado.
             if (empty($item->id)) {
                 $user = JFactory::getUser();
                 $item->consultant_id = array($user->id);
@@ -66,24 +50,18 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
     public function save($data)
     {
         $dateFields = [
-            'visit_date', 
-            'contract_start_date', 
-            'contract_end_date',
-            'loa_date',
-            'ldo_date',
-            'ppa_date'
+            'analysis_start_date', 'analysis_end_date', 'contract_start_date', 
+            'contract_end_date', 'loa_date', 'ldo_date', 'ppa_date'
         ];
-
-        $timezone = JFactory::getUser()->getTimezone();
 
         foreach ($dateFields as $field) {
             if (!empty($data[$field])) {
                 try {
-                    $date = new JDate($data[$field], $timezone);
+                    $date = new JDate($data[$field], JFactory::getUser()->getTimezone());
                     $data[$field] = $date->toSql(true);
                 } catch (Exception $e) {
-
                     $data[$field] = null;
+                    JFactory::getApplication()->enqueueMessage('Formato de data inválido para ' . $field, 'warning');
                 }
             } else {
                 $data[$field] = null;
@@ -134,7 +112,7 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
 
                 $query->select(
                     array(
-                        'tv.*', // Pega todos os campos da tabela de visitas
+                        'tv.*',
                         'c.name AS client_name',
                         'GROUP_CONCAT(u.name SEPARATOR ", ") AS consultants'
                     )
@@ -150,7 +128,6 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                 $item = $db->loadObject();
 
                 if ($item) {
-                    // Adiciona os IDs dos consultores para o formulário de edição, se necessário
                     $query->clear()
                         ->select($db->quoteName('consultant_id'))
                         ->from($db->quoteName('#__expensemanager_technical_visit_consultants'))
