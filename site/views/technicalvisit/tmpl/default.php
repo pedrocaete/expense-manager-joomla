@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @package     ExpenseManager
  * @subpackage  Site
@@ -15,7 +16,7 @@ defined('_JEXEC') or die('Restricted access');
     <h1 class="com_sagp-title"><?php echo JText::_('COM_EXPENSEMANAGER_TECHNICALVISIT_FORM_TITLE'); ?></h1>
 
     <form action="<?php echo JRoute::_('index.php?option=com_expensemanager&task=technicalvisit.save'); ?>" method="post" name="adminForm" id="technicalvisit-form" class="form-validate">
-        
+
         <!-- Bloco Principal -->
         <div class="form-columns">
             <div class="form-column">
@@ -37,11 +38,12 @@ defined('_JEXEC') or die('Restricted access');
                     <?php echo $this->form->getLabel('description'); ?>
                     <?php echo $this->form->getInput('description'); ?>
                 </div>
-                 <div class="form-group">
-                    <?php echo $this->form->getLabel('personalized_description'); ?>
-                    <?php echo $this->form->getInput('personalized_description'); ?>
-                </div>
             </div>
+        </div>
+
+        <div>
+            <?php echo $this->form->getLabel('personalized_description'); ?>
+            <?php echo $this->form->getInput('personalized_description'); ?>
         </div>
 
         <hr class="form-separator">
@@ -54,13 +56,13 @@ defined('_JEXEC') or die('Restricted access');
                     <?php echo $this->form->getLabel('contract_number'); ?>
                     <?php echo $this->form->getInput('contract_number'); ?>
                 </div>
-                 <div class="form-group">
+                <div class="form-group">
                     <?php echo $this->form->getLabel('contract_start_date'); ?>
                     <?php echo $this->form->getInput('contract_start_date'); ?>
                 </div>
             </div>
             <div class="form-column">
-                 <div class="form-group">
+                <div class="form-group">
                     <?php echo $this->form->getLabel('contract_end_date'); ?>
                     <?php echo $this->form->getInput('contract_end_date'); ?>
                 </div>
@@ -77,7 +79,7 @@ defined('_JEXEC') or die('Restricted access');
                 </div>
             </div>
             <div class="form-column">
-                 <div class="form-group">
+                <div class="form-group">
                     <?php echo $this->form->getLabel('bidding_process_year'); ?>
                     <?php echo $this->form->getInput('bidding_process_year'); ?>
                 </div>
@@ -102,7 +104,7 @@ defined('_JEXEC') or die('Restricted access');
                 </div>
             </div>
             <div class="form-column">
-                 <div class="form-group">
+                <div class="form-group">
                     <?php echo $this->form->getLabel('loa_date'); ?>
                     <?php echo $this->form->getInput('loa_date'); ?>
                 </div>
@@ -110,7 +112,7 @@ defined('_JEXEC') or die('Restricted access');
                     <?php echo $this->form->getLabel('ldo_date'); ?>
                     <?php echo $this->form->getInput('ldo_date'); ?>
                 </div>
-                 <div class="form-group">
+                <div class="form-group">
                     <?php echo $this->form->getLabel('ppa_date'); ?>
                     <?php echo $this->form->getInput('ppa_date'); ?>
                 </div>
