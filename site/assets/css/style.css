@@ -206,11 +206,11 @@
     margin-bottom: 20px;
 }
 
-#jform_personalized_description_ifr {
+iframe[id^="jform_"][id$="_ifr"] {
     height: 300px !important;
 }
 
-#jform_personalized_description {
+textarea.tiny_mce_editor[id^="jform_"] {
     height: 300px !important;
 }
 
