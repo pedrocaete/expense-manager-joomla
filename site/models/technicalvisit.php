@@ -50,8 +50,10 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
     public function save($data)
     {
         $dateFields = [
-            'analysis_start_date', 'analysis_end_date', 'contract_start_date', 
-            'contract_end_date', 'loa_date', 'ldo_date', 'ppa_date'
+            'analysis_start_date', 'analysis_end_date',
+            'contract_start_date', 'contract_end_date',
+            'loa_date', 'ldo_date', 'ppa_date',
+            'budget_classification_start_date', 'budget_classification_end_date'
         ];
 
         foreach ($dateFields as $field) {
@@ -60,8 +62,8 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                     $date = new JDate($data[$field], JFactory::getUser()->getTimezone());
                     $data[$field] = $date->toSql(true);
                 } catch (Exception $e) {
-                    $data[$field] = null;
-                    JFactory::getApplication()->enqueueMessage('Formato de data inválido para ' . $field, 'warning');
+                    $this->setError(JText::sprintf('JLIB_DATABASE_ERROR_INVALID_DATE', $field));
+                    return false;
                 }
             } else {
                 $data[$field] = null;
@@ -90,10 +92,14 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                 ->columns(array($db->quoteName('technical_visit_id'), $db->quoteName('consultant_id')));
 
             foreach ($consultantIds as $consultantId) {
-                $query->values($visitId . ', ' . (int) $consultantId);
+                if((int)$consultantId > 0){
+                    $query->values($visitId . ', ' . (int) $consultantId);
+                }
             }
 
-            $db->setQuery($query)->execute();
+            if(!empty($query->getValues())){
+                 $db->setQuery($query)->execute();
+            }
         }
 
         return true;
@@ -110,20 +116,10 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                 $db    = $this->getDbo();
                 $query = $db->getQuery(true);
 
-                $query->select(
-                    array(
-                        'tv.*',
-                        'c.name AS client_name',
-                        'GROUP_CONCAT(u.name SEPARATOR ", ") AS consultants'
-                    )
-                )
-                ->from($db->quoteName('#__expensemanager_technical_visits', 'tv'))
-                ->join('LEFT', $db->quoteName('#__expensemanager_clients', 'c') . ' ON c.id = tv.client_id')
-                ->join('LEFT', $db->quoteName('#__expensemanager_technical_visit_consultants', 'tvc') . ' ON tvc.technical_visit_id = tv.id')
-                ->join('LEFT', $db->quoteName('#__users', 'u') . ' ON u.id = tvc.consultant_id')
-                ->where('tv.id = ' . (int) $pk)
-                ->group('tv.id');
-
+                $query->select('tv.*')
+                      ->from($db->quoteName('#__expensemanager_technical_visits', 'tv'))
+                      ->where('tv.id = ' . (int) $pk);
+                
                 $db->setQuery($query);
                 $item = $db->loadObject();
 

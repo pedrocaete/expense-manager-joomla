@@ -188,6 +188,24 @@
     border-bottom: 1px solid #ddd;
 }
 
+.form-separator-dashed {
+    border: 0;
+    border-top: 1px dashed #ccc;
+    margin: 25px 0;
+}
+
+.form-group .radio {
+    margin-right: 15px;
+}
+
+.section-content-wrapper {
+    display: none;
+    border-left: 3px solid #005a9c;
+    padding-left: 20px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+
 #jform_personalized_description_ifr {
     height: 300px !important;
 }

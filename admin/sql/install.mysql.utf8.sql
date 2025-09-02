@@ -97,12 +97,15 @@ CREATE TABLE IF NOT EXISTS `#__expensemanager_expenses` (
 CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visits` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `client_id` INT(11) NOT NULL,
-  `description` TEXT NOT NULL,
+  
   `analysis_start_date` DATE NOT NULL,
   `analysis_end_date` DATE DEFAULT NULL,
   `reference_month` TINYINT(2) DEFAULT NULL,
   `reference_year` SMALLINT(4) DEFAULT NULL,
-
+  `description` TEXT NOT NULL,
+  `personalized_description` MEDIUMTEXT DEFAULT NULL,
+  
+  -- Campos de Contrato e Licitação
   `contract_number` VARCHAR(255) DEFAULT NULL,
   `contract_start_date` DATE DEFAULT NULL,
   `contract_end_date` DATE DEFAULT NULL,
@@ -115,6 +118,64 @@ CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visits` (
   `ldo_date` DATE DEFAULT NULL,
   `ppa_date` DATE DEFAULT NULL,
   
+  -- Seção 1: Assinatura
+  `report_signer_name` VARCHAR(255) DEFAULT NULL,
+
+  -- Seção 2: Gestão Orçamentária
+  `section_budget_management_enabled` TINYINT(1) DEFAULT 0,
+  `budget_exercise_year` YEAR(4) DEFAULT NULL,
+  `budget_expense_entity` VARCHAR(255) DEFAULT NULL,
+  `budget_fixed_expense_value` DECIMAL(15, 2) DEFAULT NULL,
+  `budget_fixed_expense_text` VARCHAR(255) DEFAULT NULL,
+  `budget_expense_realization_enabled` TINYINT(1) DEFAULT 0,
+  `budget_expense_realization_notes` MEDIUMTEXT DEFAULT NULL,
+  `budget_revenue_collection_enabled` TINYINT(1) DEFAULT 0,
+  `budget_revenue_collection_notes` MEDIUMTEXT DEFAULT NULL,
+  `budget_art167a_compliance_enabled` TINYINT(1) DEFAULT 0,
+  `budget_art167a_compliance_notes` MEDIUMTEXT DEFAULT NULL,
+
+  -- Seção 3: Classificação Orçamentária
+  `section_budget_classification_enabled` TINYINT(1) DEFAULT 0,
+  `budget_classification_start_date` DATE DEFAULT NULL,
+  `budget_classification_end_date` DATE DEFAULT NULL,
+  `budget_classification_transfers_enabled` TINYINT(1) DEFAULT 0,
+  `budget_classification_fundeb_enabled` TINYINT(1) DEFAULT 0,
+  `budget_classification_notes` MEDIUMTEXT DEFAULT NULL,
+
+  -- Seção 4: Apuração do Duodécimo
+  `section_duodecimo_calculation_enabled` TINYINT(1) DEFAULT 0,
+  `duodecimo_art29a_calc_enabled` TINYINT(1) DEFAULT 0,
+  `duodecimo_art29a_calc_notes` MEDIUMTEXT DEFAULT NULL,
+  `duodecimo_transfer_calc_enabled` TINYINT(1) DEFAULT 0,
+  `duodecimo_transfer_made` TINYINT(1) DEFAULT NULL,
+  `duodecimo_transfer_until_date` VARCHAR(100) DEFAULT NULL,
+  `duodecimo_transfer_total_value` DECIMAL(15, 2) DEFAULT NULL,
+  `duodecimo_transfer_total_text` VARCHAR(255) DEFAULT NULL,
+  `duodecimo_refund_made` TINYINT(1) DEFAULT NULL,
+  `duodecimo_refund_months_range` VARCHAR(100) DEFAULT NULL,
+  `duodecimo_transfer_calc_notes` MEDIUMTEXT DEFAULT NULL,
+
+  -- Seção 5: Apuração dos Índices Constitucionais
+  `section_constitutional_indices_enabled` TINYINT(1) DEFAULT 0,
+  `indices_education_until_month_year` VARCHAR(100) DEFAULT NULL,
+  `indices_financial_processed_years` VARCHAR(50) DEFAULT NULL,
+  `indices_financial_unprocessed_years` VARCHAR(50) DEFAULT NULL,
+  `indices_education_25_enabled` TINYINT(1) DEFAULT 0,
+  `indices_education_25_notes` MEDIUMTEXT DEFAULT NULL,
+  `indices_fundeb_application_enabled` TINYINT(1) DEFAULT 0,
+  `indices_fundeb_application_notes` MEDIUMTEXT DEFAULT NULL,
+  `indices_health_spending_enabled` TINYINT(1) DEFAULT 0,
+  `indices_health_spending_notes` MEDIUMTEXT DEFAULT NULL,
+  `indices_personnel_expenses_enabled` TINYINT(1) DEFAULT 0,
+  `indices_personnel_expenses_notes` MEDIUMTEXT DEFAULT NULL,
+  `indices_surplus_usage_enabled` TINYINT(1) DEFAULT 0,
+  `indices_surplus_usage_notes` MEDIUMTEXT DEFAULT NULL,
+  `indices_certificate_regularity_enabled` TINYINT(1) DEFAULT 0,
+  `indices_certificate_regularity_notes` MEDIUMTEXT DEFAULT NULL,
+  `indices_financial_availability_enabled` TINYINT(1) DEFAULT 0,
+  `indices_financial_availability_notes` MEDIUMTEXT DEFAULT NULL,
+  
+  -- Campos Padrão Joomla
   `created` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
   `created_by` INT(11) NOT NULL DEFAULT 0,
   `modified` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
@@ -122,9 +183,11 @@ CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visits` (
   `published` TINYINT(1) NOT NULL DEFAULT 1,
   `checked_out` INT(11) NOT NULL DEFAULT 0,
   `checked_out_time` DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00',
+  
   PRIMARY KEY (`id`),
   KEY `idx_client` (`client_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 DEFAULT COLLATE=utf8mb4_unicode_ci;
+
 
 -- Tabela de relacionamento N:N entre Visitas Técnicas e Consultores
 CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visit_consultants` (

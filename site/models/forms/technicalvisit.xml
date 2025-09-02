@@ -1,164 +1,530 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form addrulepath="/components/com_expensemanager/models/rules">
+
+    <!-- Seção Principal -->
     <fieldset name="details" label="COM_EXPENSEMANAGER_TECHNICALVISIT_DETAILS_LABEL">
-
-        <field
-            name="id"
-            type="hidden" />
-
-        <field
-            name="client_id"
-            type="sql"
-            label="COM_EXPENSEMANAGER_TECHNICALVISIT_CLIENT_ID_LABEL"
-            query="SELECT id, name FROM #__expensemanager_clients WHERE published = 1 ORDER BY name"
-            key_field="id"
-            value_field="name"
+        <field 
+            name="id" 
+            type="hidden" 
+        />
+        <field 
+            name="client_id" 
+            type="sql" 
+            label="COM_EXPENSEMANAGER_TECHNICALVISIT_CLIENT_ID_LABEL" 
+            query="SELECT id, name FROM #__expensemanager_clients WHERE published = 1 ORDER BY name" 
+            key_field="id" 
+            value_field="name" 
             required="true"
-            >
+        >
             <option value="">COM_EXPENSEMANAGER_SELECT_CLIENT</option>
         </field>
-
-        <field
-            name="consultant_id"
-            type="sql"
-            label="COM_EXPENSEMANAGER_TECHNICALVISIT_CONSULTANT_ID_LABEL"
-            query="SELECT u.id, u.name FROM #__users u 
-            JOIN #__user_usergroup_map m ON m.user_id = u.id 
-            WHERE m.group_id = 10
-            ORDER BY u.name"
-            key_field="id"
-            value_field="name"
-            multiple="true"
-            required="true"
-        />
-
         <field 
-            name="analysis_start_date"
-            type="calendar"
-            label="COM_EXPENSEMANAGER_ANALYSIS_START_DATE_LABEL"
-            required="true"
-            class="em-calendar-input"
-            filter="datefilter"
+            name="consultant_id" 
+            type="sql" 
+            label="COM_EXPENSEMANAGER_TECHNICALVISIT_CONSULTANT_ID_LABEL" 
+            query="SELECT u.id, u.name FROM #__users u JOIN #__user_usergroup_map m ON m.user_id = u.id WHERE m.group_id = 10 ORDER BY u.name" 
+            key_field="id" 
+            value_field="name" 
+            multiple="true" 
+            required="true" 
         />
-        
         <field 
-            name="analysis_end_date"
-            type="calendar"
-            label="COM_EXPENSEMANAGER_ANALYSIS_END_DATE_LABEL"
-            required="true"
-            class="em-calendar-input"
-            filter="datefilter"
+            name="analysis_start_date" 
+            type="calendar" 
+            label="COM_EXPENSEMANAGER_ANALYSIS_START_DATE_LABEL" 
+            required="true" 
+            class="em-calendar-input" 
+            filter="datefilter" 
         />
-
-        <field
-            name="reference_month"
-            type="text"
-            label="COM_EXPENSEMANAGER_REFERENCE_MONTH_LABEL"
-            filter="integer"
+        <field 
+            name="analysis_end_date" 
+            type="calendar" 
+            label="COM_EXPENSEMANAGER_ANALYSIS_END_DATE_LABEL" 
+            required="true" 
+            class="em-calendar-input" 
+            filter="datefilter" 
         />
-        
-        <field
-            name="reference_year"
-            type="text"
-            label="COM_EXPENSEMANAGER_REFERENCE_YEAR_LABEL"
-            filter="integer"
+        <field 
+            name="reference_month" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_REFERENCE_MONTH_LABEL" 
+            filter="integer" 
         />
-            
-        <field
-            name="description"
-            type="textarea"
-            label="COM_EXPENSEMANAGER_TECHNICALVISIT_DESCRIPTION_LABEL"
-            required="true"
-            rows="5"
-            filter="string"
+        <field 
+            name="reference_year" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_REFERENCE_YEAR_LABEL" 
+            filter="integer" 
         />
-
-        <field
-            name="personalized_description"
-            type="editor"
-            label="COM_EXPENSEMANAGER_TECHNICALVISIT_PERZONALIZED_DESCRIPTION_LABEL"
-            required="true"
+        <field 
+            name="description" 
+            type="textarea" 
+            label="COM_EXPENSEMANAGER_TECHNICALVISIT_DESCRIPTION_LABEL" 
+            required="true" 
+            rows="5" 
+            filter="string" 
         />
-
+        <field 
+            name="personalized_description" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_TECHNICALVISIT_PERZONALIZED_DESCRIPTION_LABEL" 
+            required="true" 
+        />
     </fieldset>
 
+    <!-- Seção 1: Assinatura -->
+    <fieldset name="report_signer" label="COM_EXPENSEMANAGER_REPORT_SIGNER_LABEL">
+        <field 
+            name="report_signer_name" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_REPORT_SIGNER_NAME_LABEL" 
+            filter="string" 
+        />
+    </fieldset>
+    
+    <!-- Seção 2: Gestão Orçamentária -->
+    <fieldset name="budget_management" label="COM_EXPENSEMANAGER_BUDGET_MANAGEMENT_LABEL">
+        <field 
+            name="section_budget_management_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno section-toggler" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_SHOW_SECTION_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="budget_exercise_year" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_BUDGET_EXERCISE_YEAR_LABEL" 
+            filter="integer" 
+        />
+        <field 
+            name="budget_expense_entity" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_BUDGET_EXPENSE_ENTITY_LABEL" 
+            filter="string" 
+        />
+        <field 
+            name="budget_fixed_expense_value" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_BUDGET_FIXED_EXPENSE_VALUE_LABEL" 
+            filter="float" 
+        />
+        <field 
+            name="budget_fixed_expense_text" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_BUDGET_FIXED_EXPENSE_TEXT_LABEL" 
+            filter="string" 
+        />
+        
+        <field 
+            name="budget_expense_realization_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_BUDGET_EXPENSE_REALIZATION_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="budget_expense_realization_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_BUDGET_EXPENSE_REALIZATION_NOTES_LABEL" 
+        />
+        
+        <field 
+            name="budget_revenue_collection_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_BUDGET_REVENUE_COLLECTION_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="budget_revenue_collection_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_BUDGET_REVENUE_COLLECTION_NOTES_LABEL" 
+        />
+
+        <field 
+            name="budget_art167a_compliance_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_BUDGET_ART167A_COMPLIANCE_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="budget_art167a_compliance_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_BUDGET_ART167A_COMPLIANCE_NOTES_LABEL" 
+        />
+    </fieldset>
+
+    <!-- Seção 3: Classificação Orçamentária -->
+    <fieldset name="budget_classification" label="COM_EXPENSEMANAGER_BUDGET_CLASSIFICATION_LABEL">
+        <field 
+            name="section_budget_classification_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno section-toggler" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_SHOW_SECTION_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="budget_classification_start_date" 
+            type="calendar" 
+            label="COM_EXPENSEMANAGER_BUDGET_CLASSIFICATION_START_DATE_LABEL" 
+            class="em-calendar-input" 
+            filter="datefilter" 
+        />
+        <field 
+            name="budget_classification_end_date" 
+            type="calendar" 
+            label="COM_EXPENSEMANAGER_BUDGET_CLASSIFICATION_END_DATE_LABEL" 
+            class="em-calendar-input" 
+            filter="datefilter" 
+        />
+        <field 
+            name="budget_classification_transfers_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_BUDGET_CLASSIFICATION_TRANSFERS_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="budget_classification_fundeb_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_BUDGET_CLASSIFICATION_FUNDEB_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="budget_classification_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_BUDGET_CLASSIFICATION_NOTES_LABEL" 
+        />
+    </fieldset>
+
+    <!-- Seção 4: Apuração do Duodécimo -->
+    <fieldset name="duodecimo_calculation" label="COM_EXPENSEMANAGER_DUODECIMO_CALCULATION_LABEL">
+        <field 
+            name="section_duodecimo_calculation_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno section-toggler" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_SHOW_SECTION_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="duodecimo_art29a_calc_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_DUODECIMO_ART29A_CALC_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="duodecimo_art29a_calc_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_DUODECIMO_ART29A_CALC_NOTES_LABEL" 
+        />
+        <field 
+            name="duodecimo_transfer_calc_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_DUODECIMO_TRANSFER_CALC_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="duodecimo_transfer_made" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="1" 
+            label="COM_EXPENSEMANAGER_DUODECIMO_TRANSFER_MADE_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="duodecimo_transfer_until_date" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_DUODECIMO_TRANSFER_UNTIL_DATE_LABEL" 
+        />
+        <field 
+            name="duodecimo_transfer_total_value" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_DUODECIMO_TRANSFER_TOTAL_VALUE_LABEL" 
+            filter="float" 
+        />
+        <field 
+            name="duodecimo_transfer_total_text" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_DUODECIMO_TRANSFER_TOTAL_TEXT_LABEL" 
+        />
+        <field 
+            name="duodecimo_refund_made" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_DUODECIMO_REFUND_MADE_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="duodecimo_refund_months_range" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_DUODECIMO_REFUND_MONTHS_RANGE_LABEL" 
+        />
+        <field 
+            name="duodecimo_transfer_calc_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_DUODECIMO_TRANSFER_CALC_NOTES_LABEL" 
+        />
+    </fieldset>
+
+    <!-- Seção 5: Índices Constitucionais -->
+    <fieldset name="constitutional_indices" label="COM_EXPENSEMANAGER_CONSTITUTIONAL_INDICES_LABEL">
+        <field 
+            name="section_constitutional_indices_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno section-toggler" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_SHOW_SECTION_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="indices_education_until_month_year" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_INDICES_EDUCATION_UNTIL_MONTH_YEAR_LABEL" 
+        />
+        <field 
+            name="indices_financial_processed_years" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_INDICES_FINANCIAL_PROCESSED_YEARS_LABEL" 
+        />
+        <field 
+            name="indices_financial_unprocessed_years" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_INDICES_FINANCIAL_UNPROCESSED_YEARS_LABEL" 
+        />
+        
+        <field 
+            name="indices_education_25_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_INDICES_EDUCATION_25_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="indices_education_25_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_INDICES_EDUCATION_25_NOTES_LABEL" 
+        />
+        
+        <field 
+            name="indices_fundeb_application_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_INDICES_FUNDEB_APPLICATION_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="indices_fundeb_application_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_INDICES_FUNDEB_APPLICATION_NOTES_LABEL" 
+        />
+        
+        <field 
+            name="indices_health_spending_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_INDICES_HEALTH_SPENDING_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="indices_health_spending_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_INDICES_HEALTH_SPENDING_NOTES_LABEL" 
+        />
+
+        <field 
+            name="indices_personnel_expenses_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_INDICES_PERSONNEL_EXPENSES_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="indices_personnel_expenses_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_INDICES_PERSONNEL_EXPENSES_NOTES_LABEL" 
+        />
+
+        <field 
+            name="indices_surplus_usage_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_INDICES_SURPLUS_USAGE_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="indices_surplus_usage_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_INDICES_SURPLUS_USAGE_NOTES_LABEL" 
+        />
+
+        <field 
+            name="indices_certificate_regularity_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_INDICES_CERTIFICATE_REGULARITY_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="indices_certificate_regularity_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_INDICES_CERTIFICATE_REGULARITY_NOTES_LABEL" 
+        />
+
+        <field 
+            name="indices_financial_availability_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_INDICES_FINANCIAL_AVAILABILITY_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="indices_financial_availability_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_INDICES_FINANCIAL_AVAILABILITY_NOTES_LABEL" 
+        />
+    </fieldset>
+
+    <!-- Campos de Contrato e Licitação (Movidos para o final) -->
     <fieldset name="contract_details" label="COM_EXPENSEMANAGER_CONTRACT_DETAILS_LABEL">
-        <field
-            name="contract_number"
-            type="text"
-            label="COM_EXPENSEMANAGER_CONTRACT_NUMBER_LABEL"
-            filter="string"
+        <field 
+            name="contract_number" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_CONTRACT_NUMBER_LABEL" 
+            filter="string" 
         />
-        <field
-            name="contract_start_date"
-            type="calendar"
-            label="COM_EXPENSEMANAGER_CONTRACT_START_DATE_LABEL"
-            class="em-calendar-input"
-            filter="datefilter"
+        <field 
+            name="contract_start_date" 
+            type="calendar" 
+            label="COM_EXPENSEMANAGER_CONTRACT_START_DATE_LABEL" 
+            class="em-calendar-input" 
+            filter="datefilter" 
         />
-        <field
-            name="contract_end_date"
-            type="calendar"
-            label="COM_EXPENSEMANAGER_CONTRACT_END_DATE_LABEL"
-            class="em-calendar-input"
-            filter="datefilter"
+        <field 
+            name="contract_end_date" 
+            type="calendar" 
+            label="COM_EXPENSEMANAGER_CONTRACT_END_DATE_LABEL" 
+            class="em-calendar-input" 
+            filter="datefilter" 
         />
     </fieldset>
 
     <fieldset name="bidding_details" label="COM_EXPENSEMANAGER_BIDDING_DETAILS_LABEL">
-        <field
-            name="bidding_process_number"
-            type="text"
-            label="COM_EXPENSEMANAGER_BIDDING_PROCESS_NUMBER_LABEL"
-            filter="string"
+        <field 
+            name="bidding_process_number" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_BIDDING_PROCESS_NUMBER_LABEL" 
+            filter="string" 
         />
-        <field
-            name="bidding_process_year"
-            type="text"
-            label="COM_EXPENSEMANAGER_BIDDING_PROCESS_YEAR_LABEL"
-            filter="integer"
+        <field 
+            name="bidding_process_year" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_BIDDING_PROCESS_YEAR_LABEL" 
+            filter="integer" 
         />
     </fieldset>
 
     <fieldset name="legal_instruments" label="COM_EXPENSEMANAGER_LEGAL_INSTRUMENTS_LABEL">
-        <field
-            name="loa_number"
-            type="text"
-            label="COM_EXPENSEMANAGER_LOA_NUMBER_LABEL"
-            filter="string"
+        <field 
+            name="loa_number" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_LOA_NUMBER_LABEL" 
+            filter="string" 
         />
-        <field
-            name="loa_date"
-            type="calendar"
-            label="COM_EXPENSEMANAGER_LOA_DATE_LABEL"
-            class="em-calendar-input"
-            filter="datefilter"
+        <field 
+            name="loa_date" 
+            type="calendar" 
+            label="COM_EXPENSEMANAGER_LOA_DATE_LABEL" 
+            class="em-calendar-input" 
+            filter="datefilter" 
         />
-        <field
-            name="ldo_number"
-            type="text"
-            label="COM_EXPENSEMANAGER_LDO_NUMBER_LABEL"
-            filter="string"
+        <field 
+            name="ldo_number" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_LDO_NUMBER_LABEL" 
+            filter="string" 
         />
-        <field
-            name="ldo_date"
-            type="calendar"
-            label="COM_EXPENSEMANAGER_LDO_DATE_LABEL"
-            class="em-calendar-input"
-            filter="datefilter"
+        <field 
+            name="ldo_date" 
+            type="calendar" 
+            label="COM_EXPENSEMANAGER_LDO_DATE_LABEL" 
+            class="em-calendar-input" 
+            filter="datefilter" 
         />
-        <field
-            name="ppa_number"
-            type="text"
-            label="COM_EXPENSEMANAGER_PPA_NUMBER_LABEL"
-            filter="string"
+        <field 
+            name="ppa_number" 
+            type="text" 
+            label="COM_EXPENSEMANAGER_PPA_NUMBER_LABEL" 
+            filter="string" 
         />
-        <field
-            name="ppa_date"
-            type="calendar"
-            label="COM_EXPENSEMANAGER_PPA_DATE_LABEL"
-            class="em-calendar-input"
-            filter="datefilter"
+        <field 
+            name="ppa_date" 
+            type="calendar" 
+            label="COM_EXPENSEMANAGER_PPA_DATE_LABEL" 
+            class="em-calendar-input" 
+            filter="datefilter" 
         />
     </fieldset>
 </form>
