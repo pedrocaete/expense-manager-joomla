@@ -102,8 +102,7 @@ CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visits` (
   `analysis_end_date` DATE DEFAULT NULL,
   `reference_month` TINYINT(2) DEFAULT NULL,
   `reference_year` SMALLINT(4) DEFAULT NULL,
-  `description` TEXT NOT NULL,
-  `personalized_description` MEDIUMTEXT DEFAULT NULL,
+  `summary` MEDIUMTEXT DEFAULT NULL,
   
   -- Campos de Contrato e Licitação
   `contract_number` VARCHAR(255) DEFAULT NULL,
@@ -123,7 +122,7 @@ CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visits` (
 
   -- Seção 2: Gestão Orçamentária
   `section_budget_management_enabled` TINYINT(1) DEFAULT 0,
-  `budget_exercise_year` YEAR(4) DEFAULT NULL,
+  `budget_expense_related_activity` VARCHAR(255) DEFAULT NULL,
   `budget_expense_entity` VARCHAR(255) DEFAULT NULL,
   `budget_fixed_expense_value` DECIMAL(15, 2) DEFAULT NULL,
   `budget_fixed_expense_text` VARCHAR(255) DEFAULT NULL,
@@ -148,7 +147,6 @@ CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visits` (
   `duodecimo_art29a_calc_notes` MEDIUMTEXT DEFAULT NULL,
   `duodecimo_transfer_calc_enabled` TINYINT(1) DEFAULT 0,
   `duodecimo_transfer_made` TINYINT(1) DEFAULT NULL,
-  `duodecimo_transfer_until_date` VARCHAR(100) DEFAULT NULL,
   `duodecimo_transfer_total_value` DECIMAL(15, 2) DEFAULT NULL,
   `duodecimo_transfer_total_text` VARCHAR(255) DEFAULT NULL,
   `duodecimo_refund_made` TINYINT(1) DEFAULT NULL,
@@ -157,13 +155,15 @@ CREATE TABLE IF NOT EXISTS `#__expensemanager_technical_visits` (
 
   -- Seção 5: Apuração dos Índices Constitucionais
   `section_constitutional_indices_enabled` TINYINT(1) DEFAULT 0,
-  `indices_education_until_month_year` VARCHAR(100) DEFAULT NULL,
+  `indices_education_until_month_year` DATE DEFAULT NULL,
   `indices_financial_processed_years` VARCHAR(50) DEFAULT NULL,
   `indices_financial_unprocessed_years` VARCHAR(50) DEFAULT NULL,
   `indices_education_25_enabled` TINYINT(1) DEFAULT 0,
   `indices_education_25_notes` MEDIUMTEXT DEFAULT NULL,
   `indices_fundeb_application_enabled` TINYINT(1) DEFAULT 0,
   `indices_fundeb_application_notes` MEDIUMTEXT DEFAULT NULL,
+  `indices_art212a_chart_enabled` TINYINT(1) DEFAULT 0,
+  `indices_art212a_chart_notes` MEDIUMTEXT DEFAULT NULL,
   `indices_health_spending_enabled` TINYINT(1) DEFAULT 0,
   `indices_health_spending_notes` MEDIUMTEXT DEFAULT NULL,
   `indices_personnel_expenses_enabled` TINYINT(1) DEFAULT 0,

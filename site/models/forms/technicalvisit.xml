@@ -57,17 +57,9 @@
             filter="integer" 
         />
         <field 
-            name="description" 
-            type="textarea" 
-            label="COM_EXPENSEMANAGER_TECHNICALVISIT_DESCRIPTION_LABEL" 
-            required="true" 
-            rows="5" 
-            filter="string" 
-        />
-        <field 
-            name="personalized_description" 
+            name="summary" 
             type="editor" 
-            label="COM_EXPENSEMANAGER_TECHNICALVISIT_PERZONALIZED_DESCRIPTION_LABEL" 
+            label="COM_EXPENSEMANAGER_TECHNICALVISIT_SUMMARY_LABEL" 
             required="true" 
         />
     </fieldset>
@@ -95,10 +87,10 @@
             <option value="0">JNO</option>
         </field>
         <field 
-            name="budget_exercise_year" 
+            name="budget_expense_related_activity" 
             type="text" 
-            label="COM_EXPENSEMANAGER_BUDGET_EXERCISE_YEAR_LABEL" 
-            filter="integer" 
+            label="COM_EXPENSEMANAGER_BUDGET_EXPENSE_RELATED_ACTIVITY" 
+            filter="string" 
         />
         <field 
             name="budget_expense_entity" 
@@ -269,11 +261,6 @@
             <option value="0">JNO</option>
         </field>
         <field 
-            name="duodecimo_transfer_until_date" 
-            type="text" 
-            label="COM_EXPENSEMANAGER_DUODECIMO_TRANSFER_UNTIL_DATE_LABEL" 
-        />
-        <field 
             name="duodecimo_transfer_total_value" 
             type="text" 
             label="COM_EXPENSEMANAGER_DUODECIMO_TRANSFER_TOTAL_VALUE_LABEL" 
@@ -320,8 +307,10 @@
         </field>
         <field 
             name="indices_education_until_month_year" 
-            type="text" 
+            type="calendar" 
             label="COM_EXPENSEMANAGER_INDICES_EDUCATION_UNTIL_MONTH_YEAR_LABEL" 
+            class="em-calendar-input" 
+            filter="datefilter" 
         />
         <field 
             name="indices_financial_processed_years" 
@@ -364,6 +353,22 @@
             name="indices_fundeb_application_notes" 
             type="editor" 
             label="COM_EXPENSEMANAGER_INDICES_FUNDEB_APPLICATION_NOTES_LABEL" 
+        />
+
+        <field 
+            name="indices_art212a_chart_enabled" 
+            type="radio" 
+            class="btn-group btn-group-yesno" 
+            default="0" 
+            label="COM_EXPENSEMANAGER_INDICES_ART212A_CHART_ENABLED_LABEL"
+        >
+            <option value="1">JYES</option>
+            <option value="0">JNO</option>
+        </field>
+        <field 
+            name="indices_art212a_chart_notes" 
+            type="editor" 
+            label="COM_EXPENSEMANAGER_INDICES_ART212A_CHART_NOTES_LABEL" 
         />
         
         <field 

@@ -47,14 +47,9 @@ defined('_JEXEC') or die('Restricted access');
             </div>
         </div>
 
-        <!-- Descrições -->
-        <div class="form-group">
-            <?php echo $this->form->getLabel('description'); ?>
-            <?php echo $this->form->getInput('description'); ?>
-        </div>
         <div class="form-group-editor">
-            <?php echo $this->form->getLabel('personalized_description'); ?>
-            <?php echo $this->form->getInput('personalized_description'); ?>
+            <?php echo $this->form->getLabel('summary'); ?>
+            <?php echo $this->form->getInput('summary'); ?>
         </div>
 
         <hr class="form-separator">
@@ -77,7 +72,7 @@ defined('_JEXEC') or die('Restricted access');
         <div class="section-content-wrapper">
             <div class="form-columns">
                 <div class="form-column">
-                    <?php echo $this->form->getControlGroup('budget_exercise_year'); ?>
+                    <?php echo $this->form->getControlGroup('budget_expense_related_activity'); ?>
                     <?php echo $this->form->getControlGroup('budget_fixed_expense_value'); ?>
                 </div>
                 <div class="form-column">
@@ -113,21 +108,21 @@ defined('_JEXEC') or die('Restricted access');
         </div>
         <div class="section-content-wrapper">
             <div class="form-columns">
-                <div class="form-column">
-                     <?php echo $this->form->getControlGroup('budget_classification_start_date'); ?>
+                <div class="form-group">
+                    <?php echo $this->form->getLabel('budget_classification_transfers_enabled'); ?>
+                    <?php echo $this->form->getInput('budget_classification_transfers_enabled'); ?>
                 </div>
                 <div class="form-column">
-                     <?php echo $this->form->getControlGroup('budget_classification_end_date'); ?>
+                    <?php echo $this->form->getControlGroup('budget_classification_start_date'); ?>
+                </div>
+                <div class="form-column">
+                    <?php echo $this->form->getControlGroup('budget_classification_end_date'); ?>
                 </div>
             </div>
             <hr class="form-separator-dashed">
             <div class="form-group">
-                 <?php echo $this->form->getLabel('budget_classification_transfers_enabled'); ?>
-                 <?php echo $this->form->getInput('budget_classification_transfers_enabled'); ?>
-            </div>
-            <div class="form-group">
-                 <?php echo $this->form->getLabel('budget_classification_fundeb_enabled'); ?>
-                 <?php echo $this->form->getInput('budget_classification_fundeb_enabled'); ?>
+                <?php echo $this->form->getLabel('budget_classification_fundeb_enabled'); ?>
+                <?php echo $this->form->getInput('budget_classification_fundeb_enabled'); ?>
             </div>
             <?php echo $this->form->getInput('budget_classification_notes'); ?>
         </div>
@@ -157,14 +152,13 @@ defined('_JEXEC') or die('Restricted access');
                     <?php echo $this->form->getControlGroup('duodecimo_refund_made'); ?>
                 </div>
                 <div class="form-column">
-                    <?php echo $this->form->getControlGroup('duodecimo_transfer_until_date'); ?>
                     <?php echo $this->form->getControlGroup('duodecimo_transfer_total_text'); ?>
                     <?php echo $this->form->getControlGroup('duodecimo_refund_months_range'); ?>
                 </div>
             </div>
             <?php echo $this->form->getInput('duodecimo_transfer_calc_notes'); ?>
         </div>
-        
+
         <!-- Seção 5: Apuração dos Índices Constitucionais -->
         <h2 class="fieldset-title"><?php echo JText::_('COM_EXPENSEMANAGER_CONSTITUTIONAL_INDICES_LABEL'); ?></h2>
         <div class="form-group">
@@ -172,10 +166,6 @@ defined('_JEXEC') or die('Restricted access');
             <?php echo $this->form->getInput('section_constitutional_indices_enabled'); ?>
         </div>
         <div class="section-content-wrapper">
-            <div class="form-group">
-                 <?php echo $this->form->getLabel('indices_education_until_month_year'); ?>
-                 <?php echo $this->form->getInput('indices_education_until_month_year'); ?>
-            </div>
             <hr class="form-separator-dashed">
             <div class="form-group">
                 <?php echo $this->form->getLabel('indices_education_25_enabled'); ?>
@@ -184,9 +174,19 @@ defined('_JEXEC') or die('Restricted access');
             </div>
             <hr class="form-separator-dashed">
             <div class="form-group">
+                <?php echo $this->form->getLabel('indices_education_until_month_year'); ?>
+                <?php echo $this->form->getInput('indices_education_until_month_year'); ?>
+            </div>
+            <div class="form-group">
                 <?php echo $this->form->getLabel('indices_fundeb_application_enabled'); ?>
                 <?php echo $this->form->getInput('indices_fundeb_application_enabled'); ?>
                 <?php echo $this->form->getInput('indices_fundeb_application_notes'); ?>
+            </div>
+            <hr class="form-separator-dashed">
+            <div class="form-group">
+                <?php echo $this->form->getLabel('indices_art212a_chart_enabled'); ?>
+                <?php echo $this->form->getInput('indices_art212a_chart_enabled'); ?>
+                <?php echo $this->form->getInput('indices_art212a_chart_notes'); ?>
             </div>
             <hr class="form-separator-dashed">
             <div class="form-group">
@@ -273,7 +273,7 @@ defined('_JEXEC') or die('Restricted access');
                 </div>
             </div>
             <div class="form-column">
-                 <div class="form-group">
+                <div class="form-group">
                     <?php echo $this->form->getLabel('loa_date'); ?>
                     <?php echo $this->form->getInput('loa_date'); ?>
                 </div>
