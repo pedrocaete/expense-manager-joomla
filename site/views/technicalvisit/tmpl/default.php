@@ -107,11 +107,11 @@ defined('_JEXEC') or die('Restricted access');
             <?php echo $this->form->getInput('section_budget_classification_enabled'); ?>
         </div>
         <div class="section-content-wrapper">
+            <div class="form-group">
+                <?php echo $this->form->getLabel('budget_classification_transfers_enabled'); ?>
+                <?php echo $this->form->getInput('budget_classification_transfers_enabled'); ?>
+            </div>
             <div class="form-columns">
-                <div class="form-group">
-                    <?php echo $this->form->getLabel('budget_classification_transfers_enabled'); ?>
-                    <?php echo $this->form->getInput('budget_classification_transfers_enabled'); ?>
-                </div>
                 <div class="form-column">
                     <?php echo $this->form->getControlGroup('budget_classification_start_date'); ?>
                 </div>
