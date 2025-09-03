@@ -32,28 +32,57 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
     {
         $data = JFactory::getApplication()->getUserState('com_expensemanager.edit.technicalvisit.data', array());
 
-        if (empty($data))
-        {
+        if (empty($data)) {
             $item = $this->getItem();
 
             if (empty($item->id)) {
                 $user = JFactory::getUser();
                 $item->consultant_id = array($user->id);
+
+                $editorFieldsWithDefaults = [
+                    'budget_expense_realization_notes',
+                    'budget_revenue_collection_notes',
+                    'indices_education_25_notes'
+                ];
+
+                foreach ($editorFieldsWithDefaults as $fieldName) {
+                    if (empty($item->$fieldName)) {
+                        $item->$fieldName = $this->_getDefaultEditorContent($fieldName);
+                    }
+                }
             }
-            
+
             $data = (array) $item;
         }
 
         return $data;
     }
 
+    private function _getDefaultEditorContent($fieldName)
+    {
+        $path = __DIR__ . '/defaults/' . $fieldName . '.php';
+
+        if (file_exists($path)) {
+            ob_start();
+            include $path;
+            return ob_get_clean();
+        }
+
+        return '';
+    }
+
     public function save($data)
     {
         $dateFields = [
-            'analysis_start_date', 'analysis_end_date',
-            'contract_start_date', 'contract_end_date',
-            'loa_date', 'ldo_date', 'ppa_date',
-            'budget_classification_start_date', 'budget_classification_end_date'
+            'analysis_start_date',
+            'analysis_end_date',
+            'contract_start_date',
+            'contract_end_date',
+            'loa_date',
+            'ldo_date',
+            'ppa_date',
+            'budget_classification_start_date',
+            'budget_classification_end_date'
         ];
 
         foreach ($dateFields as $field) {
@@ -92,13 +121,13 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                 ->columns(array($db->quoteName('technical_visit_id'), $db->quoteName('consultant_id')));
 
             foreach ($consultantIds as $consultantId) {
-                if((int)$consultantId > 0){
+                if ((int)$consultantId > 0) {
                     $query->values($visitId . ', ' . (int) $consultantId);
                 }
             }
 
-            if(!empty($query->getValues())){
-                 $db->setQuery($query)->execute();
+            if (!empty($query->getValues())) {
+                $db->setQuery($query)->execute();
             }
         }
 
@@ -109,17 +138,15 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
     {
         $pk = (!empty($pk)) ? $pk : (int) JFactory::getApplication()->input->getInt('id');
 
-        if ($pk > 0)
-        {
-            try
-            {
+        if ($pk > 0) {
+            try {
                 $db    = $this->getDbo();
                 $query = $db->getQuery(true);
 
                 $query->select('tv.*')
-                      ->from($db->quoteName('#__expensemanager_technical_visits', 'tv'))
-                      ->where('tv.id = ' . (int) $pk);
-                
+                    ->from($db->quoteName('#__expensemanager_technical_visits', 'tv'))
+                    ->where('tv.id = ' . (int) $pk);
+
                 $db->setQuery($query);
                 $item = $db->loadObject();
 
@@ -133,9 +160,7 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                 }
 
                 return $item;
-            }
-            catch (Exception $e)
-            {
+            } catch (Exception $e) {
                 $this->setError($e->getMessage());
                 return false;
             }
