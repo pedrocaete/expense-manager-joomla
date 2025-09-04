@@ -42,7 +42,15 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                 $editorFieldsWithDefaults = [
                     'budget_expense_realization_notes',
                     'budget_revenue_collection_notes',
-                    'indices_education_25_notes'
+                    'budget_art167a_compliance_notes',
+                    'duodecimo_art29a_calc_notes',
+                    'duodecimo_transfer_calc_notes',
+                    'indices_education_25_notes',
+                    'indices_fundeb_application_notes',
+                    'indices_art212a_chart_notes',
+                    'indices_health_spending_notes',
+                    'indices_personnel_expenses_notes',
+                    'indices_financial_availability_notes'
                 ];
 
                 foreach ($editorFieldsWithDefaults as $fieldName) {
