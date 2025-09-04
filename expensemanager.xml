@@ -34,10 +34,9 @@
         
         <submenu>
             <menu link="option=com_expensemanager&amp;view=cities">COM_EXPENSEMANAGER_CITIES</menu>
-            <menu link="option=com_expensemanager&amp;view=consultants">COM_EXPENSEMANAGER_CONSULTANTS</menu>
             <menu link="option=com_expensemanager&amp;view=clients">COM_EXPENSEMANAGER_CLIENTS</menu>
             <menu link="option=com_expensemanager&amp;view=categories">COM_EXPENSEMANAGER_CATEGORIES</menu>
-            <menu link="option=com_expensemanager&amp;view=expenses">COM_EXPENSEMANAGER_EXPENSES</menu>
+            <!-- <menu link="option=com_expensemanager&amp;view=expenses">COM_EXPENSEMANAGER_EXPENSES</menu> -->
         </submenu>
 
         <files folder="admin">

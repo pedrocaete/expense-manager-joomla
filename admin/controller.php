@@ -20,5 +20,5 @@ class ExpenseManagerController extends JControllerLegacy
      *
      * @var    string
      */
-    protected $default_view = 'expenses';
+    protected $default_view = 'clients';
 }
