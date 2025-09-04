@@ -18,16 +18,20 @@
         >
             <option value="">COM_EXPENSEMANAGER_SELECT_CLIENT</option>
         </field>
-        <field 
-            name="consultant_id" 
-            type="sql" 
-            label="COM_EXPENSEMANAGER_TECHNICALVISIT_CONSULTANT_ID_LABEL" 
-            query="SELECT u.id, u.name FROM #__users u JOIN #__user_usergroup_map m ON m.user_id = u.id WHERE m.group_id = 10 ORDER BY u.name" 
-            key_field="id" 
-            value_field="name" 
-            multiple="true" 
-            required="true" 
+        <field
+            name="consultant_id"
+            type="sql"
+            label="COM_EXPENSEMANAGER_TECHNICALVISIT_CONSULTANT_ID_LABEL"
+            query="SELECT u.id, u.name FROM #__users u 
+            JOIN #__user_usergroup_map m ON m.user_id = u.id 
+            WHERE m.group_id = 10
+            ORDER BY u.name"
+            key_field="id"
+            value_field="name"
+            multiple="true"
+            required="true"
         />
+         <!-- Obs: group_id 10 é o de consultores -->
         <field 
             name="analysis_start_date" 
             type="calendar" 
