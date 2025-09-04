@@ -82,15 +82,8 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
     public function save($data)
     {
         $dateFields = [
-            'analysis_start_date',
-            'analysis_end_date',
-            'contract_start_date',
-            'contract_end_date',
-            'loa_date',
-            'ldo_date',
-            'ppa_date',
-            'budget_classification_start_date',
-            'budget_classification_end_date'
+            'analysis_start_date', 'analysis_end_date', 'contract_start_date', 'contract_end_date',
+            'loa_date', 'ldo_date', 'ppa_date', 'budget_classification_start_date', 'budget_classification_end_date'
         ];
 
         foreach ($dateFields as $field) {
@@ -99,7 +92,7 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                     $date = new JDate($data[$field], JFactory::getUser()->getTimezone());
                     $data[$field] = $date->toSql(true);
                 } catch (Exception $e) {
-                    $this->setError(JText::sprintf('JLIB_DATABASE_ERROR_INVALID_DATE', $field));
+                    $this->setError(JText::sprintf('JLIB_FORM_VALIDATE_FIELD_INVALID', $field));
                     return false;
                 }
             } else {
@@ -151,8 +144,9 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                 $db    = $this->getDbo();
                 $query = $db->getQuery(true);
 
-                $query->select('tv.*')
+                $query->select('tv.*, c.name AS client_name')
                     ->from($db->quoteName('#__expensemanager_technical_visits', 'tv'))
+                    ->join('LEFT', $db->quoteName('#__expensemanager_clients', 'c') . ' ON c.id = tv.client_id')
                     ->where('tv.id = ' . (int) $pk);
 
                 $db->setQuery($query);
@@ -165,6 +159,17 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                         ->where($db->quoteName('technical_visit_id') . ' = ' . (int) $pk);
                     $db->setQuery($query);
                     $item->consultant_id = $db->loadColumn();
+
+                    if (!empty($item->consultant_id)) {
+                        $query->clear()
+                            ->select('u.name')
+                            ->from($db->quoteName('#__users', 'u'))
+                            ->where($db->quoteName('u.id') . ' IN (' . implode(',', $item->consultant_id) . ')');
+                        $db->setQuery($query);
+                        $item->consultants_details = $db->loadObjectList();
+                    } else {
+                        $item->consultants_details = array();
+                    }
                 }
 
                 return $item;

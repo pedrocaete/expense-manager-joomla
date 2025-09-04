@@ -1,5 +1,7 @@
 <?php
 defined('_JEXEC') or die('Restricted access');
+// Adiciona uma referência à variável item para facilitar a leitura
+$item = $this->item;
 ?>
 
 <div class="technical-visit">

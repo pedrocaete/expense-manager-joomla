@@ -1,5 +1,4 @@
 <?php defined('_JEXEC') or die; ?>
-<p>Apuração da despesa Total com Pessoal do Poder Executivo em consonância com o Art. 20, incisos I,II, III da LRF, apresentando a seguinte situação.</p>
 <table class="table table-bordered" style="width: 100%; border-collapse: collapse;">
     <thead>
         <tr style="background-color: #f2f2f2;">

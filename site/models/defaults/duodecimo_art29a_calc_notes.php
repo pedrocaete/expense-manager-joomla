@@ -1,5 +1,4 @@
 <?php defined('_JEXEC') or die; ?>
-<p>Para fins de aplicação dos limites previstos no art. 29-A, procedemos à apuração das receitas efetivamente arrecadadas pelo município no exercício anterior, tendo como referência de dados o portal fiscalizando com o TCE e do sistema operacional utilizado no município, vejamos:</p>
 <table class="table table-bordered" style="width: 100%; border-collapse: collapse;">
     <tbody>
         <tr>

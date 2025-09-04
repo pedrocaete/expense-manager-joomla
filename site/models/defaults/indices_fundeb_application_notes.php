@@ -1,5 +1,4 @@
 <?php defined('_JEXEC') or die; ?>
-<p>Análise quanto a aplicação dos recursos do FUNDEB, o Anexo VIII Fundo de Manutenção e Desenvolvimento da Educação Básica e a Valorização dos Profissionais da Educação – FUNDEB, emitido pelo sistema operacional utilizado no Município, aponta os seguintes resultados:</p>
 <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
     <thead>
         <tr style="background-color: #f2f2f2;">
@@ -51,4 +50,3 @@
         </tr>
     </tbody>
 </table>
-<p><strong>Fonte:</strong> Sistema operacional [NOME DO SISTEMA]</p>

@@ -1,5 +1,4 @@
 <?php defined('_JEXEC') or die; ?>
-<p>Análise relativo a arrecadação de receitas municipais e a previsão das metas bimestrais, vejamos nos quadros abaixo;</p>
 
 <!-- Primeira Tabela -->
 <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">

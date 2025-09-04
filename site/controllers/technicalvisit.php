@@ -1,14 +1,4 @@
 <?php
-
-/**
- * @package     ExpenseManager
- * @subpackage  Site
- * @version     1.0.0
- * @author      Pedro Inácio Rodrigues Pontes
- * @copyright   Copyright (C) 2025. Todos os direitos reservados.
- * @license     GNU General Public License version 2
- */
-
 defined('_JEXEC') or die('Restricted access');
 
 jimport('joomla.application.component.controllerform');
@@ -19,23 +9,37 @@ class ExpenseManagerControllerTechnicalvisit extends JControllerForm
     {
         JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-        $app    = JFactory::getApplication();
-        $user   = JFactory::getUser();
-        $canCreate = $user->authorise('core.create', 'com_expensemanager');
+        $app   = JFactory::getApplication();
+        $model = $this->getModel();
+        $form  = $model->getForm();
+        $data  = $this->input->post->get('jform', array(), 'array');
 
-        if (!$canCreate) {
-            $app->enqueueMessage(JText::_('JLIB_APPLICATION_ERROR_CREATE_RECORD_NOT_PERMITTED'), 'error');
-            $this->setRedirect(JRoute::_('index.php?option=com_expensemanager&view=technicalvisit', false));
+        $validData = $model->validate($form, $data);
+
+        if ($validData === false) {
+            $errors = $model->getErrors();
+            foreach ($errors as $error) {
+                $app->enqueueMessage($error, 'error');
+            }
+            $this->setRedirect(JRoute::_('index.php?option=com_expensemanager&view=technicalvisit&id=' . (int) $data['id'], false));
             return false;
         }
 
-        $result = parent::save($key, $urlVar);
+        if (!$model->save($validData)) {
+            $this->setError(JText::sprintf('JLIB_APPLICATION_ERROR_SAVE_FAILED', $model->getError()));
+            $this->setMessage($this->getError(), 'error');
+            $this->setRedirect(JRoute::_('index.php?option=com_expensemanager&view=technicalvisit&id=' . (int) $data['id'], false));
+            return false;
+        }
+
+        $this->setMessage(JText::_('COM_EXPENSEMANAGER_TECHNICALVISIT_SAVE_SUCCESS'));
+
+        $recordId = $model->getState($this->context . '.id');
 
         $this->setRedirect(
-            JRoute::_('index.php?option=com_expensemanager&view=technicalvisit', false),
-            $this->message
+            JRoute::_('index.php?option=com_expensemanager&view=technicalvisit&id=' . $recordId, false)
         );
 
-        return $result;
+        return true;
     }
 }

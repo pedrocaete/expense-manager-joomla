@@ -1,5 +1,4 @@
 <?php defined('_JEXEC') or die; ?>
-<p>Análise do cumprimento do artigo 167-A da CF/88 introduzido pela Emenda Constitucional nº 109/2021, que estabelece medidas de controle de despesas e ajuste fiscal, com o objetivo de garantir a responsabilidade na gestão financeira dos entes públicos. Vejamos a apuração;</p>
 <table class="table table-bordered" style="width: 100%; border-collapse: collapse;">
     <thead>
         <tr style="background-color: #f2f2f2;">

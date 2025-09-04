@@ -29,7 +29,7 @@ class ExpensemanagerModelTechnicalvisits extends JModelList
                 'list.select',
                 array(
                     $db->quoteName('tv.id'),
-                    $db->quoteName('tv.visit_date'),
+                    $db->quoteName('tv.analysis_start_date'),
                     $db->quoteName('c.name', 'client_name'),
                     'GROUP_CONCAT(u_consultant.name SEPARATOR ", ") AS consultants'
                 )
@@ -40,29 +40,26 @@ class ExpensemanagerModelTechnicalvisits extends JModelList
         $query->join('LEFT', $db->quoteName('#__expensemanager_clients', 'c') . ' ON (' . $db->quoteName('c.id') . ' = ' . $db->quoteName('tv.client_id') . ')');
         $query->join('LEFT', $db->quoteName('#__expensemanager_technical_visit_consultants', 'tvc') . ' ON (' . $db->quoteName('tvc.technical_visit_id') . ' = ' . $db->quoteName('tv.id') . ')');
         $query->join('LEFT', $db->quoteName('#__users', 'u_consultant') . ' ON (' . $db->quoteName('u_consultant.id') . ' = ' . $db->quoteName('tvc.consultant_id') . ')');
+
         $query->where($db->quoteName('tv.created_by') . ' = ' . $userId);
+
         $query->group($db->quoteName('tv.id'));
-        $query->order($db->quoteName('tv.visit_date') . ' DESC');
+
+        $query->order($db->quoteName('tv.analysis_start_date') . ' DESC');
 
         return $query;
     }
 
-    
-
     protected function populateState($ordering = null, $direction = null)
     {
-        parent::populateState($ordering, $direction);
+        parent::populateState('analysis_start_date', 'DESC');
 
         $app = JFactory::getApplication();
 
-        $limit = 3;
+        $limit = 10;
         $this->setState('list.limit', $limit);
 
-        $limitstart = $app->input->getInt('limitstart', 0);
+        $limitstart = $app->input->getInt('start', 0);
         $this->setState('list.start', $limitstart);
-    
-        $this->setState('list.ordering', 'visit_date');
-        $this->setState('list_direction', 'DESC');
     }
-
 }

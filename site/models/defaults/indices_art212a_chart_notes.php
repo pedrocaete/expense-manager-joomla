@@ -1,5 +1,4 @@
 <?php defined('_JEXEC') or die; ?>
-<p>Quadro Complementar com Indicadores conforme a Art. 212-A, Inciso XI e §3º da Constituição Federal e Art. 25§ 3º da lei 14.113 de 2020 (Máximo de 10% superávit)</p>
 
 <!-- Primeira Tabela -->
 <table class="table table-bordered" style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
