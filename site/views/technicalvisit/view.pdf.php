@@ -1,14 +1,16 @@
 <?php
-/**
- * @package     ExpenseManager
- * @subpackage  Site
- * @version     1.0.0
- * @author      Pedro Inácio Rodrigues Pontes
- * @copyright   Copyright (C) 2025. Todos os direitos reservados.
- * @license     GNU General Public License version 2
- */
-
 defined('_JEXEC') or die('Restricted access');
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
+$dompdfPath = JPATH_ADMINISTRATOR . '/components/com_expensemanager/libraries/dompdf/autoload.inc.php';
+
+if (!file_exists($dompdfPath)) {
+    JFactory::getApplication()->enqueueMessage('Erro CRÍTICO: A biblioteca Dompdf nao foi encontrada em /administrator/components/com_expensemanager/libraries/dompdf.', 'error');
+    return false;
+}
+require_once $dompdfPath;
 
 class ExpenseManagerViewTechnicalvisit extends JViewLegacy
 {
@@ -16,43 +18,35 @@ class ExpenseManagerViewTechnicalvisit extends JViewLegacy
     {
         $this->item = $this->get('Item');
 
-        if (!$this->item || !$this->item->id) {
-            JFactory::getApplication()->enqueueMessage('Não foi possível encontrar a visita técnica.', 'error');
-            return false;
+        if (!$this->item || empty($this->item->id)) {
+            JFactory::getApplication()->enqueueMessage('Nao foi possivel encontrar a visita tecnica para gerar o PDF.', 'error');
+            return;
+        }
+
+        ob_start();
+
+        include(JPATH_COMPONENT_SITE . '/views/technicalvisit/tmpl/pdf_layout.php');
+        
+        $html = ob_get_contents();
+        ob_end_clean();
+
+        try {
+            $options = new Options();
+            $options->set('isRemoteEnabled', true);
+            $options->set('defaultFont', 'Helvetica');
+
+            $dompdf = new Dompdf($options);
+            $dompdf->loadHtml($html, 'UTF-8');
+            $dompdf->setPaper('A4', 'portrait');
+
+            $dompdf->render();
+            $dompdf->stream('Relatorio-Visita-Tecnica-' . $this->item->id . '.pdf', array("Attachment" => false));
+
+        } catch (Exception $e) {
+            JFactory::getApplication()->enqueueMessage('Erro ao gerar o PDF: ' . $e->getMessage(), 'error');
+            return;
         }
         
-        $fpdfPath = JPATH_ADMINISTRATOR . '/components/com_expensemanager/libraries/fpdf/fpdf.php';
-        require_once $fpdfPath;
-
-        $pdf = new FPDF('P', 'mm', 'A4');
-        $pdf->AddPage();
-        $convertToFPDF = function($string) {
-            return mb_convert_encoding($string, 'ISO-8859-1', 'UTF-8');
-        };
-
-        $pdf->SetFont('Arial', 'B', 18);
-        $pdf->Cell(0, 12, $convertToFPDF('Relatório de Visita Técnica'), 0, 1, 'C');
-        $pdf->Ln(10);
-        $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(40, 8, $convertToFPDF('Cliente:'), 0, 0);
-        $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(0, 8, $convertToFPDF($this->item->client_name), 0, 1);
-        $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(40, 8, $convertToFPDF('Data da Visita:'), 0, 0);
-        $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(0, 8, JHtml::_('date', $this->item->visit_date, 'd/m/Y'), 0, 1);
-        $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(40, 8, $convertToFPDF('Consultor(es):'), 0, 0);
-        $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell(0, 8, $convertToFPDF($this->item->consultants), 0, 1);
-        $pdf->Ln(8);
-        $pdf->SetFont('Arial', 'B', 12);
-        $pdf->Cell(0, 8, $convertToFPDF('Descrição das Atividades:'), 0, 1);
-        $pdf->SetFont('Arial', '', 12);
-        $pdf->MultiCell(0, 8, $convertToFPDF($this->item->description), 1, 'L');
-
-        ob_end_clean();
-        $pdf->Output('I', 'visita_tecnica_' . $this->item->id . '.pdf');
         JFactory::getApplication()->close();
     }
 }

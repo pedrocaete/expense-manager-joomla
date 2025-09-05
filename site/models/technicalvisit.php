@@ -38,6 +38,26 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
             if (empty($item->id)) {
                 $user = JFactory::getUser();
                 $item->consultant_id = array($user->id);
+
+                $editorFieldsWithDefaults = [
+                    'budget_expense_realization_notes',
+                    'budget_revenue_collection_notes',
+                    'budget_art167a_compliance_notes',
+                    'duodecimo_art29a_calc_notes',
+                    'duodecimo_transfer_calc_notes',
+                    'indices_education_25_notes',
+                    'indices_fundeb_application_notes',
+                    'indices_art212a_chart_notes',
+                    'indices_health_spending_notes',
+                    'indices_personnel_expenses_notes',
+                    'indices_financial_availability_notes'
+                ];
+
+                foreach ($editorFieldsWithDefaults as $fieldName) {
+                    if (empty($item->$fieldName)) {
+                        $item->$fieldName = $this->_getDefaultEditorContent($fieldName);
+                    }
+                }
             }
 
             $data = (array) $item;
@@ -46,10 +66,23 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
         return $data;
     }
 
+   private function _getDefaultEditorContent($fieldName)
+    {
+        $path = __DIR__ . '/defaults/' . $fieldName . '.php';
+
+        if (file_exists($path)) {
+            ob_start();
+            include $path;
+            return ob_get_clean();
+        }
+
+        return '';
+    }
+
     public function save($data)
     {
         $db = $this->getDbo();
-        
+
         // Salva a tabela principal
         $table = $this->getTable();
         if (!$table->bind($data) || !$table->store()) {
@@ -82,10 +115,9 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                     }
                 }
             }
-            
+
             // 3. Se tudo correu bem, confirma as alterações no banco de dados
             $db->transactionCommit();
-
         } catch (Exception $e) {
             // 4. Se algo falhar, reverte todas as alterações e reporta o erro
             $db->transactionRollback();
@@ -95,7 +127,7 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
 
         // Define o ID no estado do model para o controller usar no redirecionamento
         $this->setState($this->context . '.id', $visitId);
-        
+
         return true;
     }
 
@@ -123,6 +155,18 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                         ->where($db->quoteName('technical_visit_id') . ' = ' . (int) $pk);
                     $db->setQuery($query);
                     $item->consultant_id = $db->loadColumn();
+
+                    if (!empty($item->consultant_id)) {
+                        $query->clear()
+                            ->select($db->quoteName('name')) // Adicione outras colunas se precisar, ex: 'email'
+                            ->from($db->quoteName('#__users'))
+                            ->where($db->quoteName('id') . ' IN (' . implode(',', array_map('intval', $item->consultant_id)) . ')');
+                        $db->setQuery($query);
+                        $consultantNames = $db->loadColumn();
+                        $item->consultants_details = implode("\n", $consultantNames);
+                    } else {
+                        $item->consultants_details = 'Nenhum consultor associado.';
+                    }
                 }
 
                 return $item;
