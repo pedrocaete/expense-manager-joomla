@@ -129,6 +129,7 @@
             name="budget_expense_realization_notes" 
             type="editor" 
             label="COM_EXPENSEMANAGER_BUDGET_EXPENSE_REALIZATION_NOTES_LABEL" 
+            filter="raw" 
         />
         
         <field 
@@ -144,7 +145,8 @@
         <field 
             name="budget_revenue_collection_notes" 
             type="editor" 
-            label="COM_EXPENSEMANAGER_BUDGET_REVENUE_COLLECTION_NOTES_LABEL" 
+            label="COM_EXPENSEMANAGER_BUDGET_REVENUE_COLLECTION_NOTES_LABEL"
+            filter="raw"
         />
 
         <field 
@@ -161,6 +163,7 @@
             name="budget_art167a_compliance_notes" 
             type="editor" 
             label="COM_EXPENSEMANAGER_BUDGET_ART167A_COMPLIANCE_NOTES_LABEL" 
+            filter="raw" 
         />
     </fieldset>
 
@@ -213,7 +216,8 @@
         <field 
             name="budget_classification_notes" 
             type="editor" 
-            label="COM_EXPENSEMANAGER_BUDGET_CLASSIFICATION_NOTES_LABEL" 
+            label="COM_EXPENSEMANAGER_BUDGET_CLASSIFICATION_NOTES_LABEL"
+            filter="raw" 
         />
     </fieldset>
 
@@ -243,6 +247,7 @@
             name="duodecimo_art29a_calc_notes" 
             type="editor" 
             label="COM_EXPENSEMANAGER_DUODECIMO_ART29A_CALC_NOTES_LABEL" 
+            filter="raw"
         />
         <field 
             name="duodecimo_transfer_calc_enabled" 
@@ -294,6 +299,7 @@
             name="duodecimo_transfer_calc_notes" 
             type="editor" 
             label="COM_EXPENSEMANAGER_DUODECIMO_TRANSFER_CALC_NOTES_LABEL" 
+            filter="raw"
         />
     </fieldset>
 
@@ -340,7 +346,8 @@
         <field 
             name="indices_education_25_notes" 
             type="editor" 
-            label="COM_EXPENSEMANAGER_INDICES_EDUCATION_25_NOTES_LABEL" 
+            label="COM_EXPENSEMANAGER_INDICES_EDUCATION_25_NOTES_LABEL"
+            filter="raw"
         />
         
         <field 
@@ -356,7 +363,8 @@
         <field 
             name="indices_fundeb_application_notes" 
             type="editor" 
-            label="COM_EXPENSEMANAGER_INDICES_FUNDEB_APPLICATION_NOTES_LABEL" 
+            label="COM_EXPENSEMANAGER_INDICES_FUNDEB_APPLICATION_NOTES_LABEL"
+            filter="raw"
         />
 
         <field 
@@ -372,7 +380,8 @@
         <field 
             name="indices_art212a_chart_notes" 
             type="editor" 
-            label="COM_EXPENSEMANAGER_INDICES_ART212A_CHART_NOTES_LABEL" 
+            label="COM_EXPENSEMANAGER_INDICES_ART212A_CHART_NOTES_LABEL"
+            filter="raw"
         />
         
         <field 
@@ -388,7 +397,8 @@
         <field 
             name="indices_health_spending_notes" 
             type="editor" 
-            label="COM_EXPENSEMANAGER_INDICES_HEALTH_SPENDING_NOTES_LABEL" 
+            label="COM_EXPENSEMANAGER_INDICES_HEALTH_SPENDING_NOTES_LABEL"
+            filter="raw"
         />
 
         <field 
@@ -404,7 +414,8 @@
         <field 
             name="indices_personnel_expenses_notes" 
             type="editor" 
-            label="COM_EXPENSEMANAGER_INDICES_PERSONNEL_EXPENSES_NOTES_LABEL" 
+            label="COM_EXPENSEMANAGER_INDICES_PERSONNEL_EXPENSES_NOTES_LABEL"
+            filter="raw"
         />
 
         <field 
@@ -420,7 +431,8 @@
         <field 
             name="indices_surplus_usage_notes" 
             type="editor" 
-            label="COM_EXPENSEMANAGER_INDICES_SURPLUS_USAGE_NOTES_LABEL" 
+            label="COM_EXPENSEMANAGER_INDICES_SURPLUS_USAGE_NOTES_LABEL"
+            filter="raw"
         />
 
         <field 
@@ -436,7 +448,8 @@
         <field 
             name="indices_certificate_regularity_notes" 
             type="editor" 
-            label="COM_EXPENSEMANAGER_INDICES_CERTIFICATE_REGULARITY_NOTES_LABEL" 
+            label="COM_EXPENSEMANAGER_INDICES_CERTIFICATE_REGULARITY_NOTES_LABEL"
+            filter="raw"
         />
 
         <field 
@@ -452,7 +465,8 @@
         <field 
             name="indices_financial_availability_notes" 
             type="editor" 
-            label="COM_EXPENSEMANAGER_INDICES_FINANCIAL_AVAILABILITY_NOTES_LABEL" 
+            label="COM_EXPENSEMANAGER_INDICES_FINANCIAL_AVAILABILITY_NOTES_LABEL"
+            filter="raw"
         />
     </fieldset>
 

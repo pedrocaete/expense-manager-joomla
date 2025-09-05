@@ -83,7 +83,6 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
     {
         $db = $this->getDbo();
 
-        // Salva a tabela principal
         $table = $this->getTable();
         if (!$table->bind($data) || !$table->store()) {
             $this->setError($table->getError());
@@ -93,17 +92,14 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
         $visitId = (int) $table->id;
         $consultantIds = isset($data['consultant_id']) ? (array) $data['consultant_id'] : array();
 
-        // Inicia uma transação para garantir a integridade dos dados
         $db->transactionStart();
 
         try {
-            // 1. Deleta os registos antigos da tabela de relação
             $deleteQuery = $db->getQuery(true)
                 ->delete($db->quoteName('#__expensemanager_technical_visit_consultants'))
                 ->where($db->quoteName('technical_visit_id') . ' = ' . $visitId);
             $db->setQuery($deleteQuery)->execute();
 
-            // 2. Insere cada novo registo individualmente (a abordagem mais robusta)
             if (!empty($consultantIds)) {
                 foreach ($consultantIds as $consultantId) {
                     if ((int)$consultantId > 0) {
@@ -116,16 +112,13 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
                 }
             }
 
-            // 3. Se tudo correu bem, confirma as alterações no banco de dados
             $db->transactionCommit();
         } catch (Exception $e) {
-            // 4. Se algo falhar, reverte todas as alterações e reporta o erro
             $db->transactionRollback();
             $this->setError('Erro crítico no banco de dados ao salvar consultores: ' . $e->getMessage());
             return false;
         }
 
-        // Define o ID no estado do model para o controller usar no redirecionamento
         $this->setState($this->context . '.id', $visitId);
 
         return true;
@@ -158,7 +151,7 @@ class ExpenseManagerModelTechnicalvisit extends JModelForm
 
                     if (!empty($item->consultant_id)) {
                         $query->clear()
-                            ->select($db->quoteName('name')) // Adicione outras colunas se precisar, ex: 'email'
+                            ->select($db->quoteName('name'))
                             ->from($db->quoteName('#__users'))
                             ->where($db->quoteName('id') . ' IN (' . implode(',', array_map('intval', $item->consultant_id)) . ')');
                         $db->setQuery($query);
